@@ -1,0 +1,7 @@
+# Ignore data files and large models
+*.pth
+*.mat
+data/
+__pycache__/
+*.out
+.ipynb_checkpoints/

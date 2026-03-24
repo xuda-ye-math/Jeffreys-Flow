@@ -1,0 +1,211 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{bucklew2004introduction,rubino2009rare,rubino2009introduction}
+\citation{eyring1935activated,kramers1940brownian}
+\citation{bouchet2016generalisation,lee2022non}
+\citation{torrie1977nonphysical,virnau2004calculation,kastner2011umbrella}
+\citation{van1987simulated,bertsimas1993simulated,nikolaev2010simulated}
+\citation{doucet2001introduction,cappe2007overview,chopin2020introduction,wills2023sequential}
+\citation{dellago2002transition}
+\citation{laio2002escaping}
+\citation{earl2005parallel,miasojedow2013adaptive,syed2022non,deng2023non}
+\citation{noe2019boltzmann}
+\citation{dinh2016density}
+\citation{durkan2019neural}
+\citation{noe2019boltzmann,wu2020stochastic}
+\citation{wirnsberger2020targeted,abbott2023normalizing,kohler2024transferable,coretti2024boltzmann,schebek2025scalable}
+\citation{midgley2022flow,midgley2023learning}
+\newlabel{FirstPage}{{}{1}{}{section*.1}{}}
+\@writefile{toc}{\contentsline {title}{Jeffreys Flow: Robust Boltzmann Generators for Rare Event Sampling via Distillation of Parallel Tempering}{1}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {abstract}{Abstract}{1}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section*.3}\protected@file@percent }
+\newlabel{section: introduction}{{I}{1}{}{section*.3}{}}
+\citation{noe2019boltzmann}
+\citation{deng2020accelerating,li2023fast,lin2023b}
+\citation{herman1982path,marx1996ab,ceriotti2010efficient,schoof2011configuration}
+\citation{falkner2023conditioning}
+\citation{dibak2022temperature}
+\citation{wang2025mitigating}
+\citation{matthews2022continual}
+\citation{qiu2024efficient}
+\citation{gabrie2022adaptive,abernethy2024flow}
+\citation{earl2005parallel,syed2022non}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The overall architecture of the Jeffreys Flow. PT acts as the principal guide across the temperature ladder, providing reference samples ($\mu _1, \dots  , \mu _M$) to train the sequence of normalizing flows ($F_1, F_2, \dots  , F_M$). Simultaneously, intermediate states ($\nu _0, \nu _1, \dots  , \mu _M$) are progressively pushed forward and reweighted, intrinsically averting mode collapse without relying solely on the target potential function.}}{2}{figure.1}\protected@file@percent }
+\newlabel{figure: architecture}{{1}{2}{The overall architecture of the Jeffreys Flow. PT acts as the principal guide across the temperature ladder, providing reference samples ($\mu _1, \dots , \mu _M$) to train the sequence of normalizing flows ($F_1, F_2, \dots , F_M$). Simultaneously, intermediate states ($\nu _0, \nu _1, \dots , \mu _M$) are progressively pushed forward and reweighted, intrinsically averting mode collapse without relying solely on the target potential function}{figure.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Related Works}{2}{section*.4}\protected@file@percent }
+\newlabel{section: related works}{{II}{2}{}{section*.4}{}}
+\citation{luhman2021knowledge,zhou2024simple,xie2024distillation,fu2025moflow}
+\citation{song2021maximum,batzolis2021conditional}
+\citation{lipman2022flow,chen2023flow}
+\citation{moreno2003kullback,bayarri2008generalization,yao2011symmetric,sharma2021clustering}
+\citation{nishii2006image,han2020active}
+\citation{durkan2019neural}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Single-Step Jeffreys Flow}{3}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Construction of Jeffreys Divergence}{3}{section*.6}\protected@file@percent }
+\newlabel{eq: Fpi density}{{1}{3}{}{equation.1}{}}
+\newlabel{eq: rKL}{{2}{3}{}{equation.2}{}}
+\newlabel{eq: fKL}{{3}{3}{}{equation.3}{}}
+\newlabel{eq: Jdiv}{{4}{3}{}{equation.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Jeffreys Divergece Mitigates Mode Collapse}{4}{section*.7}\protected@file@percent }
+\newlabel{eq: LJP}{{5}{4}{}{equation.5}{}}
+\newlabel{theorem: correct}{{1}{4}{}{theorem.1}{}}
+\citation{sugiyama2012density}
+\citation{tsybakov2008nonparametric}
+\citation{doucet2001introduction}
+\newlabel{lemma: concentration}{{1}{5}{}{lemma.1}{}}
+\newlabel{eq: mPQb}{{7}{5}{}{equation.7}{}}
+\newlabel{eq: PQep}{{8}{5}{}{equation.8}{}}
+\newlabel{eq: QPd}{{9}{5}{}{equation.9}{}}
+\newlabel{eq: PQd}{{10}{5}{}{equation.10}{}}
+\newlabel{theorem: concentration}{{2}{5}{}{theorem.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C}Unbiased Estimation via Importance Sampling}{5}{section*.8}\protected@file@percent }
+\citation{noe2019boltzmann}
+\citation{wu2020stochastic}
+\citation{wu2020stochastic}
+\citation{syed2022non}
+\citation{syed2022non}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D}Choice of Hyperparameters \(\lambda _0, \lambda _1\)}{6}{section*.9}\protected@file@percent }
+\newlabel{eq: lambda 01}{{16}{6}{}{equation.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Sequential Distillation from Parallel Tempering}{6}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Reference Samples from Parallel Tempering}{6}{section*.11}\protected@file@percent }
+\citation{wu2020stochastic}
+\citation{deng2020accelerating}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Sequential Flow Training Framework}{7}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}Applications in Replica Exchange SGLD}{7}{section*.13}\protected@file@percent }
+\newlabel{section: reSGLD}{{V}{7}{}{section*.13}{}}
+\newlabel{eq: akB}{{20}{7}{}{equation.20}{}}
+\citation{johnson2013accelerating,reddi2016stochastic}
+\newlabel{algorithm}{{1}{8}{}{algocfline.1}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Jeffreys Flow: Sequential Distillation from Parallel Tempering}}{8}{algocf.1}\protected@file@percent }
+\citation{reed1972methods}
+\citation{ye2023optimal}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Applications in Path Integral Monte Carlo}{9}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Path Integral Formulation}{9}{section*.15}\protected@file@percent }
+\newlabel{eq: UNx}{{24}{9}{}{equation.24}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Physics-Informed Mode Truncation}{9}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Numerical Experiments}{10}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Single-Step Transport}{10}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {}Four Potentials in Full Space}{10}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {}Periodic Well Potential}{10}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Multi-Step Boltzmann Generator}{11}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {}3D Gaussian Mixture Model}{11}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {}4D Rosenbrock}{11}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {}8D Nonlinear Rastrigin}{11}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {}16D Solvated Periodic Grid}{11}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C}Application in Replica Exchange SGLD}{12}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {}2D Gaussian Mixture Model}{12}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {}2D Screened Poisson Inverse Problem}{12}{section*.28}\protected@file@percent }
+\bibdata{mainNotes,references/introduction,references/related_works,references/applications}
+\bibcite{bucklew2004introduction}{{1}{2004}{{Bucklew\ and\ Bucklew}}{{}}}
+\bibcite{rubino2009rare}{{2}{2009}{{Rubino\ \emph  {et~al.}}}{{Rubino, Tuffin \emph  {et~al.}}}}
+\bibcite{rubino2009introduction}{{3}{2009}{{Rubino\ and\ Tuffin}}{{}}}
+\bibcite{eyring1935activated}{{4}{1935}{{Eyring}}{{}}}
+\bibcite{kramers1940brownian}{{5}{1940}{{Kramers}}{{}}}
+\bibcite{bouchet2016generalisation}{{6}{2016}{{Bouchet\ and\ Reygner}}{{}}}
+\bibcite{lee2022non}{{7}{2022}{{Lee\ and\ Seo}}{{}}}
+\bibcite{torrie1977nonphysical}{{8}{1977}{{Torrie\ and\ Valleau}}{{}}}
+\bibcite{virnau2004calculation}{{9}{2004}{{Virnau\ and\ M{\"u}ller}}{{}}}
+\bibcite{kastner2011umbrella}{{10}{2011}{{K{\"a}stner}}{{}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D}Applications in Path Integral Monte Carlo}{13}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion}{13}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {}References}{13}{section*.31}\protected@file@percent }
+\bibcite{van1987simulated}{{11}{1987}{{Van~Laarhoven\ and\ Aarts}}{{}}}
+\bibcite{bertsimas1993simulated}{{12}{1993}{{Bertsimas\ and\ Tsitsiklis}}{{}}}
+\bibcite{nikolaev2010simulated}{{13}{2010}{{Nikolaev\ and\ Jacobson}}{{}}}
+\bibcite{doucet2001introduction}{{14}{2001}{{Doucet\ \emph  {et~al.}}}{{Doucet, De~Freitas,\ and\ Gordon}}}
+\bibcite{cappe2007overview}{{15}{2007}{{Capp{\'e}\ \emph  {et~al.}}}{{Capp{\'e}, Godsill,\ and\ Moulines}}}
+\bibcite{chopin2020introduction}{{16}{2020}{{Chopin\ \emph  {et~al.}}}{{Chopin, Papaspiliopoulos \emph  {et~al.}}}}
+\bibcite{wills2023sequential}{{17}{2023}{{Wills\ and\ Sch{\"o}n}}{{}}}
+\bibcite{dellago2002transition}{{18}{2002}{{Dellago\ \emph  {et~al.}}}{{Dellago, Bolhuis,\ and\ Geissler}}}
+\bibcite{laio2002escaping}{{19}{2002}{{Laio\ and\ Parrinello}}{{}}}
+\bibcite{earl2005parallel}{{20}{2005}{{Earl\ and\ Deem}}{{}}}
+\bibcite{miasojedow2013adaptive}{{21}{2013}{{Miasojedow\ \emph  {et~al.}}}{{Miasojedow, Moulines,\ and\ Vihola}}}
+\bibcite{syed2022non}{{22}{2022}{{Syed\ \emph  {et~al.}}}{{Syed, Bouchard-C{\^o}t{\'e}, Deligiannidis,\ and\ Doucet}}}
+\bibcite{deng2023non}{{23}{2023}{{Deng\ \emph  {et~al.}}}{{Deng, Zhang, Feng, Liang,\ and\ Lin}}}
+\bibcite{noe2019boltzmann}{{24}{2019}{{No{\'e}\ \emph  {et~al.}}}{{No{\'e}, Olsson, K{\"o}hler,\ and\ Wu}}}
+\bibcite{dinh2016density}{{25}{2016}{{Dinh\ \emph  {et~al.}}}{{Dinh, Sohl-Dickstein,\ and\ Bengio}}}
+\bibcite{durkan2019neural}{{26}{2019}{{Durkan\ \emph  {et~al.}}}{{Durkan, Bekasov, Murray,\ and\ Papamakarios}}}
+\bibcite{wu2020stochastic}{{27}{2020}{{Wu\ \emph  {et~al.}}}{{Wu, K{\"o}hler,\ and\ No{\'e}}}}
+\bibcite{wirnsberger2020targeted}{{28}{2020}{{Wirnsberger\ \emph  {et~al.}}}{{Wirnsberger, Ballard, Papamakarios, Abercrombie, Racani{\`e}re, Pritzel, Jimenez~Rezende,\ and\ Blundell}}}
+\bibcite{abbott2023normalizing}{{29}{2023}{{Abbott\ \emph  {et~al.}}}{{Abbott, Albergo, Botev, Boyda, Cranmer, Hackett, Kanwar, Matthews, Racani{\`e}re, Razavi \emph  {et~al.}}}}
+\bibcite{kohler2024transferable}{{30}{2024}{{K{\"o}hler\ \emph  {et~al.}}}{{K{\"o}hler, Ingraham,\ and\ No{\'e}}}}
+\bibcite{coretti2024boltzmann}{{31}{2024}{{Coretti\ \emph  {et~al.}}}{{Coretti, Falkner, Weinreich, Dellago,\ and\ von Lilienfeld}}}
+\bibcite{schebek2025scalable}{{32}{2025}{{Schebek\ \emph  {et~al.}}}{{Schebek, No{\'e},\ and\ Rogal}}}
+\bibcite{midgley2022flow}{{33}{2022}{{Midgley\ \emph  {et~al.}}}{{Midgley, Stimper, Simm, Sch{\"o}lkopf,\ and\ Hern{\'a}ndez-Lobato}}}
+\bibcite{midgley2023learning}{{34}{2023}{{Midgley\ \emph  {et~al.}}}{{Midgley, Stimper, Simm, Sch{\"o}lkopf,\ and\ Hern{\'a}ndez-Lobato}}}
+\bibcite{deng2020accelerating}{{35}{2020}{{Deng\ \emph  {et~al.}}}{{Deng, Feng, Karagiannis, Lin,\ and\ Liang}}}
+\bibcite{li2023fast}{{36}{2023}{{Li\ \emph  {et~al.}}}{{Li, Lin, Zhang,\ and\ Zhou}}}
+\bibcite{lin2023b}{{37}{2023}{{Lin\ \emph  {et~al.}}}{{Lin, Moya,\ and\ Zhang}}}
+\bibcite{herman1982path}{{38}{1982}{{Herman\ \emph  {et~al.}}}{{Herman, Bruskin,\ and\ Berne}}}
+\bibcite{marx1996ab}{{39}{1996}{{Marx\ and\ Parrinello}}{{}}}
+\bibcite{ceriotti2010efficient}{{40}{2010}{{Ceriotti\ \emph  {et~al.}}}{{Ceriotti, Parrinello, Markland,\ and\ Manolopoulos}}}
+\bibcite{schoof2011configuration}{{41}{2011}{{Schoof\ \emph  {et~al.}}}{{Schoof, Bonitz, Filinov, Hochstuhl,\ and\ Dufty}}}
+\bibcite{falkner2023conditioning}{{42}{2023}{{Falkner\ \emph  {et~al.}}}{{Falkner, Coretti, Romano, Geissler,\ and\ Dellago}}}
+\bibcite{dibak2022temperature}{{43}{2022}{{Dibak\ \emph  {et~al.}}}{{Dibak, Klein, Kr{\"a}mer,\ and\ No{\'e}}}}
+\bibcite{wang2025mitigating}{{44}{2025}{{Wang\ \emph  {et~al.}}}{{Wang, Chi,\ and\ Dinner}}}
+\bibcite{matthews2022continual}{{45}{2022}{{Matthews\ \emph  {et~al.}}}{{Matthews, Arbel, Rezende,\ and\ Doucet}}}
+\bibcite{qiu2024efficient}{{46}{2024}{{Qiu\ and\ Wang}}{{}}}
+\bibcite{gabrie2022adaptive}{{47}{2022}{{Gabri{\'e}\ \emph  {et~al.}}}{{Gabri{\'e}, Rotskoff,\ and\ Vanden-Eijnden}}}
+\bibcite{abernethy2024flow}{{48}{2024}{{Abernethy\ \emph  {et~al.}}}{{Abernethy \emph  {et~al.}}}}
+\bibcite{luhman2021knowledge}{{49}{2021}{{Luhman\ and\ Luhman}}{{}}}
+\bibcite{zhou2024simple}{{50}{2024}{{Zhou\ \emph  {et~al.}}}{{Zhou, Chen, Wang, Chen,\ and\ Lyu}}}
+\bibcite{xie2024distillation}{{51}{2024}{{Xie\ \emph  {et~al.}}}{{Xie, Xiao, Kingma, Hou, Wu, Murphy, Salimans, Poole,\ and\ Gao}}}
+\bibcite{fu2025moflow}{{52}{2025}{{Fu\ \emph  {et~al.}}}{{Fu, Yan, Wang, Li,\ and\ Liao}}}
+\bibcite{song2021maximum}{{53}{2021}{{Song\ \emph  {et~al.}}}{{Song, Durkan, Murray,\ and\ Ermon}}}
+\bibcite{batzolis2021conditional}{{54}{2021}{{Batzolis\ \emph  {et~al.}}}{{Batzolis, Stanczuk, Sch{\"o}nlieb,\ and\ Etmann}}}
+\bibcite{lipman2022flow}{{55}{2022}{{Lipman\ \emph  {et~al.}}}{{Lipman, Chen, Ben-Hamu, Nickel,\ and\ Le}}}
+\bibcite{chen2023flow}{{56}{2023}{{Chen\ and\ Lipman}}{{}}}
+\bibcite{moreno2003kullback}{{57}{2003}{{Moreno\ \emph  {et~al.}}}{{Moreno, Ho,\ and\ Vasconcelos}}}
+\bibcite{bayarri2008generalization}{{58}{2008}{{Bayarri\ and\ Garc{\'\i }a-Donato}}{{}}}
+\bibcite{yao2011symmetric}{{59}{2011}{{Yao\ \emph  {et~al.}}}{{Yao, Lai,\ and\ Liu}}}
+\bibcite{sharma2021clustering}{{60}{2021}{{Sharma\ \emph  {et~al.}}}{{Sharma, Seal, Yazidi, Selamat,\ and\ Krejcar}}}
+\bibcite{nishii2006image}{{61}{2006}{{Nishii\ and\ Eguchi}}{{}}}
+\bibcite{han2020active}{{62}{2020}{{Han\ and\ Wu}}{{}}}
+\bibcite{sugiyama2012density}{{63}{2012}{{Sugiyama\ \emph  {et~al.}}}{{Sugiyama, Suzuki,\ and\ Kanamori}}}
+\bibcite{tsybakov2008nonparametric}{{64}{2008}{{Tsybakov}}{{}}}
+\bibcite{johnson2013accelerating}{{65}{2013}{{Johnson\ and\ Zhang}}{{}}}
+\bibcite{reddi2016stochastic}{{66}{2016}{{Reddi\ \emph  {et~al.}}}{{Reddi, Hefny, Sra, Poczos,\ and\ Smola}}}
+\bibcite{reed1972methods}{{67}{1972}{{Reed\ \emph  {et~al.}}}{{Reed, Simon, Simon,\ and\ Simon}}}
+\bibcite{ye2023optimal}{{68}{2023}{{Ye\ and\ Zhou}}{{}}}
+\bibstyle{apsrev4-2}
+\citation{REVTEX42Control}
+\citation{apsrev42Control}
+\newlabel{LastBibItem}{{68}{15}{}{section*.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Density plots of the generated samples across four 2D landscapes. The Jeffreys Flow ($0 < \theta < 1$) robustly corrects the noisy artifacts of Forward KL ($\theta =0$) and strictly prevents the destructive mode collapse inherent to Reverse KL ($\theta =1$).}}{16}{figure.2}\protected@file@percent }
+\newlabel{fig: single_step}{{2}{16}{Density plots of the generated samples across four 2D landscapes. The Jeffreys Flow ($0 < \theta < 1$) robustly corrects the noisy artifacts of Forward KL ($\theta =0$) and strictly prevents the destructive mode collapse inherent to Reverse KL ($\theta =1$)}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Left: The generated distribution from the Jeffreys Flow. The scatter samples accurately capture all modes of the periodic potential ($N=4^{12}$). Right: As sample size $N$ increases, the ESS remains consistently optimal ($\approx 100\%$) while the $L^2$ bias strictly follows the theoretical Monte Carlo convergence rate.}}{17}{figure.3}\protected@file@percent }
+\newlabel{fig: single_step_periodic}{{3}{17}{Left: The generated distribution from the Jeffreys Flow. The scatter samples accurately capture all modes of the periodic potential ($N=4^{12}$). Right: As sample size $N$ increases, the ESS remains consistently optimal ($\approx 100\%$) while the $L^2$ bias strictly follows the theoretical Monte Carlo convergence rate}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Sequential distillation on the 3D Gaussian Mixture Model. Top: Reference PT samples at various temperatures. Bottom: Generated samples from the distilled Jeffreys Flow. The resulting bias of the Jeffreys Flow is much smaller than PT.}}{17}{figure.4}\protected@file@percent }
+\newlabel{fig: gm_results}{{4}{17}{Sequential distillation on the 3D Gaussian Mixture Model. Top: Reference PT samples at various temperatures. Bottom: Generated samples from the distilled Jeffreys Flow. The resulting bias of the Jeffreys Flow is much smaller than PT}{figure.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Sequential distillation on the 4D Rosenbrock. Top: Reference PT samples. Bottom: Generated samples from the Jeffreys Flow successfully learning the highly non-linear correlations.}}{18}{figure.5}\protected@file@percent }
+\newlabel{fig: rb_results}{{5}{18}{Sequential distillation on the 4D Rosenbrock. Top: Reference PT samples. Bottom: Generated samples from the Jeffreys Flow successfully learning the highly non-linear correlations}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Comparison for 8D Nonlinear Rastrigin. Left: Potential energy distribution $P(U)$ comparison between PT and Jeffreys Flow. Right: 1D marginal distribution $p(x_1)$ comparison. Both methods show consistent mode coverage and energy profiles.}}{18}{figure.6}\protected@file@percent }
+\newlabel{fig: nr_results}{{6}{18}{Comparison for 8D Nonlinear Rastrigin. Left: Potential energy distribution $P(U)$ comparison between PT and Jeffreys Flow. Right: 1D marginal distribution $p(x_1)$ comparison. Both methods show consistent mode coverage and energy profiles}{figure.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Performance metrics for the 8D Nonlinear Rastrigin potential. The table displays the inverse temperature $\beta $, the CESS, and the ESS at each stage. The ESS is reset to $100\%$ (marked as boxed) whenever adaptive resampling is performed.}}{19}{table.1}\protected@file@percent }
+\newlabel{tab: nr_metrics}{{I}{19}{Performance metrics for the 8D Nonlinear Rastrigin potential. The table displays the inverse temperature $\beta $, the CESS, and the ESS at each stage. The ESS is reset to $100\%$ (marked as boxed) whenever adaptive resampling is performed}{table.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Decorrelation in the 16D Solvated Periodic Grid. Top: PT reference samples exhibit spurious diagonal correlations. Bottom: Jeffreys Flow successfully uncouples the bath to recover the exact independent checkerboard structure.}}{19}{figure.7}\protected@file@percent }
+\newlabel{fig: sl_joint}{{7}{19}{Decorrelation in the 16D Solvated Periodic Grid. Top: PT reference samples exhibit spurious diagonal correlations. Bottom: Jeffreys Flow successfully uncouples the bath to recover the exact independent checkerboard structure}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Potential of Mean Force (PMF) along $x_1$. Jeffreys Flow perfectly reconstructs the analytical free energy barriers that PT completely fails to cross.}}{20}{figure.8}\protected@file@percent }
+\newlabel{fig: sl_pmf}{{8}{20}{Potential of Mean Force (PMF) along $x_1$. Jeffreys Flow perfectly reconstructs the analytical free energy barriers that PT completely fails to cross}{figure.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Bias Evaluation across the intermediate targets in the 2D GMM experiment. The bias is drastically reduced by training with Jeffreys Flow, filtering out aggressive discretization errors inherent in reSGLD.}}{20}{table.2}\protected@file@percent }
+\newlabel{tab: resgld_bias}{{II}{20}{Bias Evaluation across the intermediate targets in the 2D GMM experiment. The bias is drastically reduced by training with Jeffreys Flow, filtering out aggressive discretization errors inherent in reSGLD}{table.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces ESS across the intermediate targets in the 2D GMM experiment. High quantitative ESS values demonstrate the ability of Jeffreys Flow as a robust feed-forward Boltzmann Generator for direct, independent sample generation.}}{20}{table.3}\protected@file@percent }
+\newlabel{tab: resgld_ess}{{III}{20}{ESS across the intermediate targets in the 2D GMM experiment. High quantitative ESS values demonstrate the ability of Jeffreys Flow as a robust feed-forward Boltzmann Generator for direct, independent sample generation}{table.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Decorrelation in the 2D GMM. Visual comparison between reSGLD baselines and Jeffreys Flow configurations. Jeffreys (SVRG) fully resolves the probability density distribution. Jeffreys (No SVRG) generates samples featuring excessive spread and undesirable artificial tails.}}{21}{figure.9}\protected@file@percent }
+\newlabel{fig: resgld_results}{{9}{21}{Decorrelation in the 2D GMM. Visual comparison between reSGLD baselines and Jeffreys Flow configurations. Jeffreys (SVRG) fully resolves the probability density distribution. Jeffreys (No SVRG) generates samples featuring excessive spread and undesirable artificial tails}{figure.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces CESS across the intermediate targets in the 2D Screened Poisson experiment. All evaluated configurations sustain extremely high CESS scores, confirming the robustness and massive acceleration achieved by the trained Jeffreys Flow.}}{21}{table.4}\protected@file@percent }
+\newlabel{tab: poisson_ess}{{IV}{21}{CESS across the intermediate targets in the 2D Screened Poisson experiment. All evaluated configurations sustain extremely high CESS scores, confirming the robustness and massive acceleration achieved by the trained Jeffreys Flow}{table.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces Sampling Bias Evaluation in High Dimensions. Using solely a single transport map trained exclusively at the truncated dimension $N_0 = 8$, the reweighted Jeffreys Flow generates high-fidelity sampling accuracy uniformly up to $N = 32$, with the bias adhering to the rapid theoretical $\mathcal  {O}(1/N^2)$ discretization error decay.}}{21}{table.5}\protected@file@percent }
+\newlabel{tab: pimc_bias}{{V}{21}{Sampling Bias Evaluation in High Dimensions. Using solely a single transport map trained exclusively at the truncated dimension $N_0 = 8$, the reweighted Jeffreys Flow generates high-fidelity sampling accuracy uniformly up to $N = 32$, with the bias adhering to the rapid theoretical $\mathcal {O}(1/N^2)$ discretization error decay}{table.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces 2D Screened Poisson Equipment Setup. Left: The true multi-source distribution field generated by the ground truth locations. Right: The resulting physical response $u(x)$ modeled by solving the discretized Poisson PDE. The $81$ fixed local sensors (square markers) collect the noisy measurements used to infer the unknown source locations (star markers).}}{22}{figure.10}\protected@file@percent }
+\newlabel{fig: poisson_setup}{{10}{22}{2D Screened Poisson Equipment Setup. Left: The true multi-source distribution field generated by the ground truth locations. Right: The resulting physical response $u(x)$ modeled by solving the discretized Poisson PDE. The $81$ fixed local sensors (square markers) collect the noisy measurements used to infer the unknown source locations (star markers)}{figure.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Marginal Posterior for Source 1 ($\theta _1$) in the Poisson Inverse Problem. The Exact configuration produces tightly bounded, high-fidelity posterior samples. The Neural Network-approximated Stochastic result exhibits structural degradation, validating the necessity of using exact PDE evaluations for calculating the importance weights.}}{22}{figure.11}\protected@file@percent }
+\newlabel{fig: poisson_marginals}{{11}{22}{Marginal Posterior for Source 1 ($\theta _1$) in the Poisson Inverse Problem. The Exact configuration produces tightly bounded, high-fidelity posterior samples. The Neural Network-approximated Stochastic result exhibits structural degradation, validating the necessity of using exact PDE evaluations for calculating the importance weights}{figure.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Quantum Path Integral Distillation. Comparison of the marginal spatial density between the classical distribution constructed from the empirical training samples and the distilled quantum distribution extracted using Jeffreys Flow.}}{23}{figure.12}\protected@file@percent }
+\newlabel{fig: pimc_density}{{12}{23}{Quantum Path Integral Distillation. Comparison of the marginal spatial density between the classical distribution constructed from the empirical training samples and the distilled quantum distribution extracted using Jeffreys Flow}{figure.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Progression of the CESS over the intermediate bridging steps. Sustained high CESS scores confirm the robustness and stability of the transport map during the classical-to-quantum distillation sequence.}}{23}{figure.13}\protected@file@percent }
+\newlabel{fig: pimc_cess}{{13}{23}{Progression of the CESS over the intermediate bridging steps. Sustained high CESS scores confirm the robustness and stability of the transport map during the classical-to-quantum distillation sequence}{figure.13}{}}
+\newlabel{LastPage}{{}{23}{}{}{}}
+\gdef \@abspage@last{23}

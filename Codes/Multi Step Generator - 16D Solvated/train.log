@@ -1,0 +1,885 @@
+[Config] Using device: cuda
+[Config] System Name: Solvated Periodic Grid (SL)
+[Config] Theta: 0.75
+[Data] Scanning and loading all MATLAB data from ./data...
+       Loaded MU_0: torch.Size([500000, 16])
+       Loaded MU_1: torch.Size([500000, 16])
+       Loaded MU_10: torch.Size([500000, 16])
+       Loaded MU_11: torch.Size([500000, 16])
+       Loaded MU_12: torch.Size([500000, 16])
+       Loaded MU_13: torch.Size([500000, 16])
+       Loaded MU_14: torch.Size([500000, 16])
+       Loaded MU_15: torch.Size([500000, 16])
+       Loaded MU_16: torch.Size([500000, 16])
+       Loaded MU_17: torch.Size([500000, 16])
+       Loaded MU_18: torch.Size([500000, 16])
+       Loaded MU_19: torch.Size([500000, 16])
+       Loaded MU_2: torch.Size([500000, 16])
+       Loaded MU_20: torch.Size([500000, 16])
+       Loaded MU_21: torch.Size([500000, 16])
+       Loaded MU_22: torch.Size([500000, 16])
+       Loaded MU_23: torch.Size([500000, 16])
+       Loaded MU_24: torch.Size([500000, 16])
+       Loaded MU_25: torch.Size([500000, 16])
+       Loaded MU_26: torch.Size([500000, 16])
+       Loaded MU_27: torch.Size([500000, 16])
+       Loaded MU_28: torch.Size([500000, 16])
+       Loaded MU_29: torch.Size([500000, 16])
+       Loaded MU_3: torch.Size([500000, 16])
+       Loaded MU_30: torch.Size([500000, 16])
+       Loaded MU_31: torch.Size([500000, 16])
+       Loaded MU_4: torch.Size([500000, 16])
+       Loaded MU_5: torch.Size([500000, 16])
+       Loaded MU_6: torch.Size([500000, 16])
+       Loaded MU_7: torch.Size([500000, 16])
+       Loaded MU_8: torch.Size([500000, 16])
+       Loaded MU_9: torch.Size([500000, 16])
+[Data] Successfully loaded 32 stages: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+[Data] Loaded BETA_LIST from SL_BETA_LIST.mat: torch.Size([32]) elements
+[Config] Ladder Steps (M): 31
+[Config] Beta Sequence: ['0.000', '0.001', '0.001', '0.002', '0.003', '0.005', '0.007', '0.010', '0.015', '0.022', '0.032', '0.046', '0.068', '0.100', '0.150', '0.200', '0.250', '0.300', '0.350', '0.400', '0.450', '0.500', '0.550', '0.600', '0.650', '0.700', '0.750', '0.800', '0.850', '0.900', '0.950', '1.000']
+
+[Initialization] No valid checkpoint found. Starting from Step 0.
+[Initialization] Generating NU_0 (Base Dist, N=500000)...
+  [IO] Saved NU_0 samples/weights to .mat
+
+>>> PROCESSING STAGE 1 / 31 (Beta 0.000 -> 0.001)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 1: Flow_1 (Theta=0.75)
+============================================================
+  > Var(Source): 13.9998 | Var(Target): 13.6004
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 1 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 11.3069 | E_KL: 0.9830 | D_KL: 0.2898
+Step 1 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 5.6530 | E_KL: 0.6916 | D_KL: -0.4732
+Step 1 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 4.9029 | E_KL: 0.6288 | D_KL: -0.4998
+Step 1 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 4.7676 | E_KL: 0.6189 | D_KL: -0.5092
+Step 1 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 4.6266 | E_KL: 0.6083 | D_KL: -0.5179
+Step 1 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 4.4556 | E_KL: 0.5958 | D_KL: -0.5293
+Step 1 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 4.2952 | E_KL: 0.5840 | D_KL: -0.5401
+Step 1 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 4.1874 | E_KL: 0.5759 | D_KL: -0.5469
+Step 1 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 4.1285 | E_KL: 0.5715 | D_KL: -0.5506
+  [Epoch 10/10] Avg Loss: 4.0894 | E_KL: 0.5685 | D_KL: -0.5529
+  [Propagation] Applying Flow_1 to NU_0...
+  [Metrics] CESS (Step): 98.72% | ESS (Total): 98.72%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.001)...
+  [IO] Saved NU_1 samples/weights (CESS=0.99, ESS=0.99) to .mat
+
+>>> PROCESSING STAGE 2 / 31 (Beta 0.001 -> 0.001)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 2: Flow_2 (Theta=0.75)
+============================================================
+  > Var(Source): 13.6199 | Var(Target): 13.4414
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 2 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 9.6802 | E_KL: 0.6846 | D_KL: 0.7996
+Step 2 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 1.5690 | E_KL: 0.2150 | D_KL: -0.1866
+Step 2 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 1.4899 | E_KL: 0.2087 | D_KL: -0.1911
+Step 2 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.4717 | E_KL: 0.2072 | D_KL: -0.1919
+Step 2 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.4647 | E_KL: 0.2067 | D_KL: -0.1924
+Step 2 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.4593 | E_KL: 0.2062 | D_KL: -0.1927
+Step 2 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 1.4565 | E_KL: 0.2060 | D_KL: -0.1928
+Step 2 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 1.4543 | E_KL: 0.2059 | D_KL: -0.1930
+Step 2 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 1.4519 | E_KL: 0.2057 | D_KL: -0.1931
+  [Epoch 10/10] Avg Loss: 1.4499 | E_KL: 0.2055 | D_KL: -0.1933
+  [Propagation] Applying Flow_2 to NU_1...
+  [Metrics] CESS (Step): 99.16% | ESS (Total): 97.88%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.001)...
+  [IO] Saved NU_2 samples/weights (CESS=0.99, ESS=0.98) to .mat
+
+>>> PROCESSING STAGE 3 / 31 (Beta 0.001 -> 0.002)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 3: Flow_3 (Theta=0.75)
+============================================================
+  > Var(Source): 13.4544 | Var(Target): 13.2052
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 3 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 11.2234 | E_KL: 0.8331 | D_KL: 0.8531
+Step 3 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 2.0155 | E_KL: 0.2758 | D_KL: -0.2326
+Step 3 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 1.8921 | E_KL: 0.2658 | D_KL: -0.2392
+Step 3 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.8597 | E_KL: 0.2631 | D_KL: -0.2409
+Step 3 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.8463 | E_KL: 0.2620 | D_KL: -0.2416
+Step 3 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.8406 | E_KL: 0.2615 | D_KL: -0.2419
+Step 3 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 1.8359 | E_KL: 0.2612 | D_KL: -0.2422
+Step 3 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 1.8318 | E_KL: 0.2609 | D_KL: -0.2424
+Step 3 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 1.8299 | E_KL: 0.2607 | D_KL: -0.2425
+  [Epoch 10/10] Avg Loss: 1.8277 | E_KL: 0.2605 | D_KL: -0.2426
+  [Propagation] Applying Flow_3 to NU_2...
+  [Metrics] CESS (Step): 98.86% | ESS (Total): 96.76%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.002)...
+  [IO] Saved NU_3 samples/weights (CESS=0.99, ESS=0.97) to .mat
+
+>>> PROCESSING STAGE 4 / 31 (Beta 0.002 -> 0.003)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 4: Flow_4 (Theta=0.75)
+============================================================
+  > Var(Source): 13.2166 | Var(Target): 12.8755
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 4 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 10.6473 | E_KL: 0.6833 | D_KL: 1.2036
+Step 4 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 2.4965 | E_KL: 0.3463 | D_KL: -0.2910
+Step 4 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 2.3448 | E_KL: 0.3334 | D_KL: -0.2982
+Step 4 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 2.2965 | E_KL: 0.3294 | D_KL: -0.3008
+Step 4 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 2.2732 | E_KL: 0.3275 | D_KL: -0.3023
+Step 4 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 2.2593 | E_KL: 0.3263 | D_KL: -0.3030
+Step 4 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 2.2482 | E_KL: 0.3254 | D_KL: -0.3036
+Step 4 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 2.2400 | E_KL: 0.3248 | D_KL: -0.3042
+Step 4 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 2.2317 | E_KL: 0.3241 | D_KL: -0.3046
+  [Epoch 10/10] Avg Loss: 2.2232 | E_KL: 0.3233 | D_KL: -0.3050
+  [Propagation] Applying Flow_4 to NU_3...
+  [Metrics] CESS (Step): 98.83% | ESS (Total): 95.62%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.003)...
+  [IO] Saved NU_4 samples/weights (CESS=0.99, ESS=0.96) to .mat
+
+>>> PROCESSING STAGE 5 / 31 (Beta 0.003 -> 0.005)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 5: Flow_5 (Theta=0.75)
+============================================================
+  > Var(Source): 12.8802 | Var(Target): 12.4302
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 5 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 9.0485 | E_KL: 0.7242 | D_KL: 0.6605
+Step 5 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 3.0314 | E_KL: 0.4320 | D_KL: -0.3673
+Step 5 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 2.8273 | E_KL: 0.4144 | D_KL: -0.3783
+Step 5 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 2.7729 | E_KL: 0.4096 | D_KL: -0.3810
+Step 5 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 2.7439 | E_KL: 0.4071 | D_KL: -0.3826
+Step 5 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 2.7261 | E_KL: 0.4056 | D_KL: -0.3837
+Step 5 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 2.7141 | E_KL: 0.4046 | D_KL: -0.3843
+Step 5 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 2.6995 | E_KL: 0.4034 | D_KL: -0.3852
+Step 5 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 2.6836 | E_KL: 0.4020 | D_KL: -0.3861
+  [Epoch 10/10] Avg Loss: 2.6692 | E_KL: 0.4008 | D_KL: -0.3870
+  [Propagation] Applying Flow_5 to NU_4...
+  [Metrics] CESS (Step): 99.05% | ESS (Total): 94.70%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.005)...
+  [IO] Saved NU_5 samples/weights (CESS=0.99, ESS=0.95) to .mat
+
+>>> PROCESSING STAGE 6 / 31 (Beta 0.005 -> 0.007)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 6: Flow_6 (Theta=0.75)
+============================================================
+  > Var(Source): 12.4219 | Var(Target): 11.8134
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 6 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 10.3261 | E_KL: 0.8834 | D_KL: 0.7096
+Step 6 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 3.6128 | E_KL: 0.5374 | D_KL: -0.4720
+Step 6 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 3.3831 | E_KL: 0.5168 | D_KL: -0.4846
+Step 6 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 3.3392 | E_KL: 0.5129 | D_KL: -0.4875
+Step 6 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 3.3207 | E_KL: 0.5114 | D_KL: -0.4889
+Step 6 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 3.3121 | E_KL: 0.5106 | D_KL: -0.4894
+Step 6 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 3.3065 | E_KL: 0.5101 | D_KL: -0.4897
+Step 6 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 3.3009 | E_KL: 0.5096 | D_KL: -0.4900
+Step 6 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 3.2934 | E_KL: 0.5090 | D_KL: -0.4904
+  [Epoch 10/10] Avg Loss: 3.2855 | E_KL: 0.5083 | D_KL: -0.4909
+  [Propagation] Applying Flow_6 to NU_5...
+  [Metrics] CESS (Step): 98.84% | ESS (Total): 93.57%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.007)...
+  [IO] Saved NU_6 samples/weights (CESS=0.99, ESS=0.94) to .mat
+
+>>> PROCESSING STAGE 7 / 31 (Beta 0.007 -> 0.010)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 7: Flow_7 (Theta=0.75)
+============================================================
+  > Var(Source): 11.7998 | Var(Target): 11.0245
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 7 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 8.5688 | E_KL: 0.9226 | D_KL: 0.1465
+Step 7 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 4.4186 | E_KL: 0.6862 | D_KL: -0.6001
+Step 7 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 4.1391 | E_KL: 0.6601 | D_KL: -0.6178
+Step 7 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 4.0696 | E_KL: 0.6537 | D_KL: -0.6225
+Step 7 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 4.0417 | E_KL: 0.6512 | D_KL: -0.6246
+Step 7 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 4.0231 | E_KL: 0.6494 | D_KL: -0.6257
+Step 7 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 4.0100 | E_KL: 0.6482 | D_KL: -0.6265
+Step 7 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 4.0006 | E_KL: 0.6474 | D_KL: -0.6272
+Step 7 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 3.9930 | E_KL: 0.6466 | D_KL: -0.6275
+  [Epoch 10/10] Avg Loss: 3.9853 | E_KL: 0.6459 | D_KL: -0.6280
+  [Propagation] Applying Flow_7 to NU_6...
+  [Metrics] CESS (Step): 98.77% | ESS (Total): 92.39%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.010)...
+  [IO] Saved NU_7 samples/weights (CESS=0.99, ESS=0.92) to .mat
+
+>>> PROCESSING STAGE 8 / 31 (Beta 0.010 -> 0.015)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 8: Flow_8 (Theta=0.75)
+============================================================
+  > Var(Source): 11.0256 | Var(Target): 10.0695
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 8 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 9.6824 | E_KL: 1.1534 | D_KL: 0.0575
+Step 8 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 5.2231 | E_KL: 0.8659 | D_KL: -0.7696
+Step 8 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 4.8923 | E_KL: 0.8324 | D_KL: -0.7908
+Step 8 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 4.8268 | E_KL: 0.8259 | D_KL: -0.7955
+Step 8 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 4.8020 | E_KL: 0.8235 | D_KL: -0.7976
+Step 8 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 4.7881 | E_KL: 0.8221 | D_KL: -0.7986
+Step 8 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 4.7770 | E_KL: 0.8211 | D_KL: -0.7994
+Step 8 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 4.7672 | E_KL: 0.8201 | D_KL: -0.8001
+Step 8 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 4.7582 | E_KL: 0.8192 | D_KL: -0.8007
+  [Epoch 10/10] Avg Loss: 4.7513 | E_KL: 0.8185 | D_KL: -0.8012
+  [Propagation] Applying Flow_8 to NU_7...
+  [Metrics] CESS (Step): 98.67% | ESS (Total): 91.09%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.015)...
+  [IO] Saved NU_8 samples/weights (CESS=0.99, ESS=0.91) to .mat
+
+>>> PROCESSING STAGE 9 / 31 (Beta 0.015 -> 0.022)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 9: Flow_9 (Theta=0.75)
+============================================================
+  > Var(Source): 10.0536 | Var(Target): 8.9373
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 9 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 11.3283 | E_KL: 1.5073 | D_KL: -0.0168
+Step 9 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 6.1025 | E_KL: 1.0935 | D_KL: -0.9588
+Step 9 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 5.6813 | E_KL: 1.0471 | D_KL: -0.9910
+Step 9 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 5.5909 | E_KL: 1.0373 | D_KL: -0.9985
+Step 9 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 5.5540 | E_KL: 1.0334 | D_KL: -1.0017
+Step 9 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 5.5350 | E_KL: 1.0314 | D_KL: -1.0033
+Step 9 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 5.5209 | E_KL: 1.0298 | D_KL: -1.0044
+Step 9 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 5.5089 | E_KL: 1.0285 | D_KL: -1.0053
+Step 9 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 5.4974 | E_KL: 1.0272 | D_KL: -1.0061
+  [Epoch 10/10] Avg Loss: 5.4860 | E_KL: 1.0259 | D_KL: -1.0069
+  [Propagation] Applying Flow_9 to NU_8...
+  [Metrics] CESS (Step): 98.49% | ESS (Total): 89.59%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.022)...
+  [IO] Saved NU_9 samples/weights (CESS=0.98, ESS=0.90) to .mat
+
+>>> PROCESSING STAGE 10 / 31 (Beta 0.022 -> 0.032)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 10: Flow_10 (Theta=0.75)
+============================================================
+  > Var(Source): 8.9361 | Var(Target): 7.7150
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 10 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 12.1388 | E_KL: 1.8497 | D_KL: -0.1338
+Step 10 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 6.9348 | E_KL: 1.3704 | D_KL: -1.1664
+Step 10 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 6.4564 | E_KL: 1.3109 | D_KL: -1.2077
+Step 10 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 6.2358 | E_KL: 1.2824 | D_KL: -1.2229
+Step 10 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 6.1613 | E_KL: 1.2736 | D_KL: -1.2312
+Step 10 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 6.1344 | E_KL: 1.2703 | D_KL: -1.2336
+Step 10 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 6.1208 | E_KL: 1.2687 | D_KL: -1.2352
+Step 10 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 6.1135 | E_KL: 1.2678 | D_KL: -1.2358
+Step 10 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 6.1061 | E_KL: 1.2669 | D_KL: -1.2365
+  [Epoch 10/10] Avg Loss: 6.1015 | E_KL: 1.2663 | D_KL: -1.2369
+  [Propagation] Applying Flow_10 to NU_9...
+  [Metrics] CESS (Step): 97.74% | ESS (Total): 87.34%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.032)...
+  [IO] Saved NU_10 samples/weights (CESS=0.98, ESS=0.87) to .mat
+
+>>> PROCESSING STAGE 11 / 31 (Beta 0.032 -> 0.046)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 11: Flow_11 (Theta=0.75)
+============================================================
+  > Var(Source): 7.7025 | Var(Target): 6.4751
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 11 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 12.6336 | E_KL: 2.2297 | D_KL: -0.1528
+Step 11 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 7.1413 | E_KL: 1.6286 | D_KL: -1.4005
+Step 11 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 6.5883 | E_KL: 1.5478 | D_KL: -1.4536
+Step 11 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 6.4688 | E_KL: 1.5310 | D_KL: -1.4676
+Step 11 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 6.4212 | E_KL: 1.5243 | D_KL: -1.4732
+Step 11 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 6.3970 | E_KL: 1.5209 | D_KL: -1.4759
+Step 11 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 6.3809 | E_KL: 1.5187 | D_KL: -1.4777
+Step 11 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 6.3695 | E_KL: 1.5170 | D_KL: -1.4790
+Step 11 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 6.3597 | E_KL: 1.5156 | D_KL: -1.4799
+  [Epoch 10/10] Avg Loss: 6.3516 | E_KL: 1.5145 | D_KL: -1.4809
+  [Propagation] Applying Flow_11 to NU_10...
+  [Metrics] CESS (Step): 97.36% | ESS (Total): 84.63%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.046)...
+  [IO] Saved NU_11 samples/weights (CESS=0.97, ESS=0.85) to .mat
+
+>>> PROCESSING STAGE 12 / 31 (Beta 0.046 -> 0.068)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 12: Flow_12 (Theta=0.75)
+============================================================
+  > Var(Source): 6.4688 | Var(Target): 5.3060
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 12 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 11.9037 | E_KL: 2.5250 | D_KL: -0.2613
+Step 12 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 6.8723 | E_KL: 1.8681 | D_KL: -1.6516
+Step 12 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 6.4533 | E_KL: 1.7938 | D_KL: -1.6959
+Step 12 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 6.3555 | E_KL: 1.7778 | D_KL: -1.7111
+Step 12 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 6.3147 | E_KL: 1.7710 | D_KL: -1.7170
+Step 12 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 6.2901 | E_KL: 1.7668 | D_KL: -1.7202
+Step 12 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 6.2764 | E_KL: 1.7644 | D_KL: -1.7217
+Step 12 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 6.2676 | E_KL: 1.7628 | D_KL: -1.7226
+Step 12 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 6.2602 | E_KL: 1.7615 | D_KL: -1.7233
+  [Epoch 10/10] Avg Loss: 6.2546 | E_KL: 1.7604 | D_KL: -1.7235
+  [Propagation] Applying Flow_12 to NU_11...
+  [Metrics] CESS (Step): 96.66% | ESS (Total): 81.07%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.068)...
+  [IO] Saved NU_12 samples/weights (CESS=0.97, ESS=0.81) to .mat
+
+>>> PROCESSING STAGE 13 / 31 (Beta 0.068 -> 0.100)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 13: Flow_13 (Theta=0.75)
+============================================================
+  > Var(Source): 5.3075 | Var(Target): 4.3047
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 13 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 15.8800 | E_KL: 3.8363 | D_KL: 0.5659
+Step 13 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 6.6034 | E_KL: 2.1528 | D_KL: -1.8270
+Step 13 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 6.0442 | E_KL: 2.0332 | D_KL: -1.9041
+Step 13 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 5.9363 | E_KL: 2.0107 | D_KL: -1.9213
+Step 13 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 5.8957 | E_KL: 2.0029 | D_KL: -1.9302
+Step 13 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 5.8781 | E_KL: 1.9995 | D_KL: -1.9338
+Step 13 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 5.8667 | E_KL: 1.9972 | D_KL: -1.9359
+Step 13 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 5.8589 | E_KL: 1.9957 | D_KL: -1.9377
+Step 13 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 5.8538 | E_KL: 1.9946 | D_KL: -1.9384
+  [Epoch 10/10] Avg Loss: 5.8498 | E_KL: 1.9938 | D_KL: -1.9391
+  [Propagation] Applying Flow_13 to NU_12...
+  [Metrics] CESS (Step): 95.54% | ESS (Total): 76.18%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.100)...
+  [IO] Saved NU_13 samples/weights (CESS=0.96, ESS=0.76) to .mat
+
+>>> PROCESSING STAGE 14 / 31 (Beta 0.100 -> 0.150)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 14: Flow_14 (Theta=0.75)
+============================================================
+  > Var(Source): 4.3118 | Var(Target): 3.4758
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 14 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 111.9429 | E_KL: 22.4664 | D_KL: 45.2154
+Step 14 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 6.5355 | E_KL: 2.5816 | D_KL: -2.0864
+Step 14 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 5.8265 | E_KL: 2.3934 | D_KL: -2.2019
+Step 14 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 5.6795 | E_KL: 2.3556 | D_KL: -2.2304
+Step 14 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 5.6285 | E_KL: 2.3429 | D_KL: -2.2419
+Step 14 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 5.6050 | E_KL: 2.3372 | D_KL: -2.2475
+Step 14 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 5.5933 | E_KL: 2.3343 | D_KL: -2.2504
+Step 14 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 5.5854 | E_KL: 2.3323 | D_KL: -2.2520
+Step 14 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 5.5778 | E_KL: 2.3304 | D_KL: -2.2536
+  [Epoch 10/10] Avg Loss: 5.5723 | E_KL: 2.3290 | D_KL: -2.2547
+  [Propagation] Applying Flow_14 to NU_13...
+  [Metrics] CESS (Step): 93.14% | ESS (Total): 69.18%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.150)...
+  [IO] Saved NU_14 samples/weights (CESS=0.93, ESS=0.69) to .mat
+
+>>> PROCESSING STAGE 15 / 31 (Beta 0.150 -> 0.200)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 15: Flow_15 (Theta=0.75)
+============================================================
+  > Var(Source): 3.4884 | Var(Target): 3.0660
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 15 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 99.5256 | E_KL: 23.6452 | D_KL: 49.1357
+Step 15 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 3.7770 | E_KL: 1.9096 | D_KL: -1.5903
+Step 15 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 3.4147 | E_KL: 1.7942 | D_KL: -1.6694
+Step 15 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 3.3430 | E_KL: 1.7725 | D_KL: -1.6888
+Step 15 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 3.3186 | E_KL: 1.7652 | D_KL: -1.6955
+Step 15 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 3.3057 | E_KL: 1.7612 | D_KL: -1.6988
+Step 15 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 3.2980 | E_KL: 1.7589 | D_KL: -1.7009
+Step 15 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 3.2912 | E_KL: 1.7567 | D_KL: -1.7023
+Step 15 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 3.2867 | E_KL: 1.7552 | D_KL: -1.7031
+  [Epoch 10/10] Avg Loss: 3.2818 | E_KL: 1.7536 | D_KL: -1.7042
+  [Propagation] Applying Flow_15 to NU_14...
+  [Metrics] CESS (Step): 95.46% | ESS (Total): 64.27%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.200)...
+  [IO] Saved NU_15 samples/weights (CESS=0.95, ESS=0.64) to .mat
+
+>>> PROCESSING STAGE 16 / 31 (Beta 0.200 -> 0.250)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 16: Flow_16 (Theta=0.75)
+============================================================
+  > Var(Source): 3.0812 | Var(Target): 2.8529
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 16 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 168.3285 | E_KL: 61.0367 | D_KL: 38.2475
+Step 16 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 2.7561 | E_KL: 1.5797 | D_KL: -1.2540
+Step 16 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 2.3919 | E_KL: 1.4522 | D_KL: -1.3515
+Step 16 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 2.3245 | E_KL: 1.4285 | D_KL: -1.3694
+Step 16 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 2.2983 | E_KL: 1.4195 | D_KL: -1.3769
+Step 16 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 2.2864 | E_KL: 1.4152 | D_KL: -1.3797
+Step 16 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 2.2804 | E_KL: 1.4132 | D_KL: -1.3815
+Step 16 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 2.2761 | E_KL: 1.4117 | D_KL: -1.3826
+Step 16 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 2.2725 | E_KL: 1.4105 | D_KL: -1.3838
+  [Epoch 10/10] Avg Loss: 2.2699 | E_KL: 1.4096 | D_KL: -1.3845
+  [Propagation] Applying Flow_16 to NU_15...
+  [Metrics] CESS (Step): 96.19% | ESS (Total): 59.74%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.250)...
+  [IO] Saved NU_16 samples/weights (CESS=0.96, ESS=0.60) to .mat
+
+>>> PROCESSING STAGE 17 / 31 (Beta 0.250 -> 0.300)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 17: Flow_17 (Theta=0.75)
+============================================================
+  > Var(Source): 2.8775 | Var(Target): 2.7723
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 17 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 117.8147 | E_KL: 35.4438 | D_KL: 59.6237
+Step 17 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 2.5563 | E_KL: 1.4759 | D_KL: -0.9074
+Step 17 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 1.8651 | E_KL: 1.2194 | D_KL: -1.1060
+Step 17 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.8010 | E_KL: 1.1959 | D_KL: -1.1252
+Step 17 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.7705 | E_KL: 1.1843 | D_KL: -1.1332
+Step 17 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.7574 | E_KL: 1.1797 | D_KL: -1.1378
+Step 17 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 1.7501 | E_KL: 1.1771 | D_KL: -1.1402
+Step 17 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 1.7457 | E_KL: 1.1755 | D_KL: -1.1416
+Step 17 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 1.7430 | E_KL: 1.1746 | D_KL: -1.1426
+  [Epoch 10/10] Avg Loss: 1.7406 | E_KL: 1.1738 | D_KL: -1.1436
+  [Propagation] Applying Flow_17 to NU_16...
+  [Metrics] CESS (Step): 96.80% | ESS (Total): 56.15%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.300)...
+  [IO] Saved NU_17 samples/weights (CESS=0.97, ESS=0.56) to .mat
+
+>>> PROCESSING STAGE 18 / 31 (Beta 0.300 -> 0.350)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 18: Flow_18 (Theta=0.75)
+============================================================
+  > Var(Source): 2.8045 | Var(Target): 2.7904
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 18 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 336.6686 | E_KL: 123.9961 | D_KL: 108.7457
+Step 18 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 2.0203 | E_KL: 1.1973 | D_KL: -0.7138
+Step 18 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 1.5197 | E_KL: 1.0392 | D_KL: -0.9548
+Step 18 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.4620 | E_KL: 1.0190 | D_KL: -0.9765
+Step 18 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.4410 | E_KL: 1.0117 | D_KL: -0.9848
+Step 18 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.4312 | E_KL: 1.0083 | D_KL: -0.9886
+Step 18 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 1.4255 | E_KL: 1.0063 | D_KL: -0.9908
+Step 18 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 1.4213 | E_KL: 1.0048 | D_KL: -0.9921
+Step 18 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 1.4181 | E_KL: 1.0036 | D_KL: -0.9932
+  [Epoch 10/10] Avg Loss: 1.4163 | E_KL: 1.0029 | D_KL: -0.9938
+  [Propagation] Applying Flow_18 to NU_17...
+  [Metrics] CESS (Step): 96.73% | ESS (Total): 53.06%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.350)...
+  [IO] Saved NU_18 samples/weights (CESS=0.97, ESS=0.53) to .mat
+
+>>> PROCESSING STAGE 19 / 31 (Beta 0.350 -> 0.400)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 19: Flow_19 (Theta=0.75)
+============================================================
+  > Var(Source): 2.8398 | Var(Target): 2.9011
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 19 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 147.2675 | E_KL: 40.9965 | D_KL: 82.6617
+Step 19 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 1.6464 | E_KL: 1.0022 | D_KL: -0.6729
+Step 19 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 1.3101 | E_KL: 0.8951 | D_KL: -0.8223
+Step 19 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.2635 | E_KL: 0.8780 | D_KL: -0.8363
+Step 19 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.2467 | E_KL: 0.8720 | D_KL: -0.8418
+Step 19 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.2392 | E_KL: 0.8692 | D_KL: -0.8440
+Step 19 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 1.2350 | E_KL: 0.8677 | D_KL: -0.8454
+Step 19 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 1.2318 | E_KL: 0.8667 | D_KL: -0.8467
+Step 19 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 1.2298 | E_KL: 0.8660 | D_KL: -0.8474
+  [Epoch 10/10] Avg Loss: 1.2279 | E_KL: 0.8654 | D_KL: -0.8483
+  [Propagation] Applying Flow_19 to NU_18...
+  [Metrics] CESS (Step): 97.22% | ESS (Total): 50.15%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.400)...
+  [IO] Saved NU_19 samples/weights (CESS=0.97, ESS=0.50) to .mat
+
+>>> PROCESSING STAGE 20 / 31 (Beta 0.400 -> 0.450)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 20: Flow_20 (Theta=0.75)
+============================================================
+  > Var(Source): 2.9529 | Var(Target): 3.0920
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 20 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 591.5527 | E_KL: 191.6012 | D_KL: 216.3162
+Step 20 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 6.9541 | E_KL: 1.9817 | D_KL: 3.3185
+Step 20 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 1.5263 | E_KL: 0.8985 | D_KL: -0.5998
+Step 20 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.2125 | E_KL: 0.8011 | D_KL: -0.7267
+Step 20 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.1493 | E_KL: 0.7809 | D_KL: -0.7506
+Step 20 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.1259 | E_KL: 0.7735 | D_KL: -0.7596
+Step 20 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 1.1145 | E_KL: 0.7698 | D_KL: -0.7639
+Step 20 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 1.1073 | E_KL: 0.7675 | D_KL: -0.7666
+Step 20 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 1.1025 | E_KL: 0.7659 | D_KL: -0.7681
+  [Epoch 10/10] Avg Loss: 1.0987 | E_KL: 0.7647 | D_KL: -0.7695
+  [Propagation] Applying Flow_20 to NU_19...
+  [Metrics] CESS (Step): 96.48% | ESS (Total): 46.44%
+  [Adaptive] ESS < 50%. Performing Resampling (Weights reset)...
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.450)...
+  [IO] Saved NU_20 samples/weights (CESS=0.96, ESS=1.00) to .mat
+
+>>> PROCESSING STAGE 21 / 31 (Beta 0.450 -> 0.500)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 21: Flow_21 (Theta=0.75)
+============================================================
+  > Var(Source): 3.1622 | Var(Target): 3.4068
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 21 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 401.9661 | E_KL: 113.4247 | D_KL: 156.1184
+Step 21 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 5.9756 | E_KL: 2.0886 | D_KL: 1.2004
+Step 21 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 1.4989 | E_KL: 0.7912 | D_KL: -0.4433
+Step 21 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.1703 | E_KL: 0.7080 | D_KL: -0.5973
+Step 21 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.0987 | E_KL: 0.6871 | D_KL: -0.6233
+Step 21 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.0727 | E_KL: 0.6796 | D_KL: -0.6328
+Step 21 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 1.0590 | E_KL: 0.6756 | D_KL: -0.6377
+Step 21 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 1.0507 | E_KL: 0.6732 | D_KL: -0.6410
+Step 21 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 1.0448 | E_KL: 0.6716 | D_KL: -0.6433
+  [Epoch 10/10] Avg Loss: 1.0405 | E_KL: 0.6704 | D_KL: -0.6450
+  [Propagation] Applying Flow_21 to NU_20...
+  [Metrics] CESS (Step): 96.03% | ESS (Total): 96.03%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.500)...
+  [IO] Saved NU_21 samples/weights (CESS=0.96, ESS=0.96) to .mat
+
+>>> PROCESSING STAGE 22 / 31 (Beta 0.500 -> 0.550)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 22: Flow_22 (Theta=0.75)
+============================================================
+  > Var(Source): 3.4852 | Var(Target): 3.8639
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 22 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 1274.7080 | E_KL: 406.4452 | D_KL: 219.7822
+Step 22 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 4.7868 | E_KL: 1.2589 | D_KL: 1.5488
+Step 22 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 1.3768 | E_KL: 0.6968 | D_KL: -0.4602
+Step 22 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.0637 | E_KL: 0.6188 | D_KL: -0.5732
+Step 22 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 0.9948 | E_KL: 0.6011 | D_KL: -0.5968
+Step 22 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 0.9678 | E_KL: 0.5952 | D_KL: -0.6086
+Step 22 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 0.9562 | E_KL: 0.5929 | D_KL: -0.6144
+Step 22 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 0.9500 | E_KL: 0.5916 | D_KL: -0.6172
+Step 22 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 0.9450 | E_KL: 0.5903 | D_KL: -0.6190
+  [Epoch 10/10] Avg Loss: 0.9413 | E_KL: 0.5895 | D_KL: -0.6206
+  [Propagation] Applying Flow_22 to NU_21...
+  [Metrics] CESS (Step): 96.56% | ESS (Total): 90.82%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.550)...
+  [IO] Saved NU_22 samples/weights (CESS=0.97, ESS=0.91) to .mat
+
+>>> PROCESSING STAGE 23 / 31 (Beta 0.550 -> 0.600)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 23: Flow_23 (Theta=0.75)
+============================================================
+  > Var(Source): 3.9484 | Var(Target): 4.4737
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 23 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 750.8272 | E_KL: 171.3022 | D_KL: 217.7683
+Step 23 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 2.4517 | E_KL: 0.8132 | D_KL: 0.0389
+Step 23 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 1.1561 | E_KL: 0.5551 | D_KL: -0.4360
+Step 23 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.0338 | E_KL: 0.5272 | D_KL: -0.4716
+Step 23 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 0.9960 | E_KL: 0.5188 | D_KL: -0.4830
+Step 23 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 0.9796 | E_KL: 0.5151 | D_KL: -0.4881
+Step 23 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 0.9697 | E_KL: 0.5130 | D_KL: -0.4914
+Step 23 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 0.9633 | E_KL: 0.5118 | D_KL: -0.4937
+Step 23 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 0.9584 | E_KL: 0.5109 | D_KL: -0.4958
+  [Epoch 10/10] Avg Loss: 0.9549 | E_KL: 0.5101 | D_KL: -0.4969
+  [Propagation] Applying Flow_23 to NU_22...
+  [Metrics] CESS (Step): 96.59% | ESS (Total): 84.33%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.600)...
+  [IO] Saved NU_23 samples/weights (CESS=0.97, ESS=0.84) to .mat
+
+>>> PROCESSING STAGE 24 / 31 (Beta 0.600 -> 0.650)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 24: Flow_24 (Theta=0.75)
+============================================================
+  > Var(Source): 4.6030 | Var(Target): 5.3506
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 24 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 2545.9187 | E_KL: 538.9796 | D_KL: 512.2646
+Step 24 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 126.2852 | E_KL: 18.7426 | D_KL: 46.0370
+Step 24 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 11.4843 | E_KL: 1.3459 | D_KL: 5.1119
+Step 24 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 2.3398 | E_KL: 0.6470 | D_KL: 0.0795
+Step 24 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.2595 | E_KL: 0.5132 | D_KL: -0.3829
+Step 24 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.0603 | E_KL: 0.4768 | D_KL: -0.4379
+Step 24 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 0.9835 | E_KL: 0.4624 | D_KL: -0.4582
+Step 24 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 0.9433 | E_KL: 0.4552 | D_KL: -0.4695
+Step 24 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 0.9215 | E_KL: 0.4512 | D_KL: -0.4757
+  [Epoch 10/10] Avg Loss: 0.9064 | E_KL: 0.4485 | D_KL: -0.4800
+  [Propagation] Applying Flow_24 to NU_23...
+  [Metrics] CESS (Step): 95.17% | ESS (Total): 75.87%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.650)...
+  [IO] Saved NU_24 samples/weights (CESS=0.95, ESS=0.76) to .mat
+
+>>> PROCESSING STAGE 25 / 31 (Beta 0.650 -> 0.700)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 25: Flow_25 (Theta=0.75)
+============================================================
+  > Var(Source): 5.5039 | Var(Target): 6.5511
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 25 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 4727.4264 | E_KL: 748.0272 | D_KL: 1001.1234
+Step 25 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 82.8046 | E_KL: 12.2731 | D_KL: 19.6254
+Step 25 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 2.7451 | E_KL: 0.6301 | D_KL: 0.0879
+Step 25 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.3133 | E_KL: 0.4197 | D_KL: -0.2560
+Step 25 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.0898 | E_KL: 0.3868 | D_KL: -0.3094
+Step 25 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.0206 | E_KL: 0.3765 | D_KL: -0.3258
+Step 25 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 0.9894 | E_KL: 0.3720 | D_KL: -0.3335
+Step 25 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 0.9733 | E_KL: 0.3697 | D_KL: -0.3375
+Step 25 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 0.9609 | E_KL: 0.3681 | D_KL: -0.3410
+  [Epoch 10/10] Avg Loss: 0.9494 | E_KL: 0.3664 | D_KL: -0.3439
+  [Propagation] Applying Flow_25 to NU_24...
+  [Metrics] CESS (Step): 95.39% | ESS (Total): 66.22%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.700)...
+  [IO] Saved NU_25 samples/weights (CESS=0.95, ESS=0.66) to .mat
+
+>>> PROCESSING STAGE 26 / 31 (Beta 0.700 -> 0.750)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 26: Flow_26 (Theta=0.75)
+============================================================
+  > Var(Source): 6.8013 | Var(Target): 8.2404
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 26 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 4161.2607 | E_KL: 577.3173 | D_KL: 590.4446
+Step 26 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 277.2755 | E_KL: 26.5388 | D_KL: 68.8807
+Step 26 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 26.8094 | E_KL: 1.4932 | D_KL: 9.3162
+Step 26 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 3.0356 | E_KL: 0.5037 | D_KL: 0.2264
+Step 26 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.1709 | E_KL: 0.3437 | D_KL: -0.2827
+Step 26 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 0.9230 | E_KL: 0.3136 | D_KL: -0.3286
+Step 26 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 0.8376 | E_KL: 0.3035 | D_KL: -0.3448
+Step 26 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 0.7917 | E_KL: 0.2984 | D_KL: -0.3545
+Step 26 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 0.7621 | E_KL: 0.2956 | D_KL: -0.3619
+  [Epoch 10/10] Avg Loss: 0.7403 | E_KL: 0.2938 | D_KL: -0.3682
+  [Propagation] Applying Flow_26 to NU_25...
+  [Metrics] CESS (Step): 93.65% | ESS (Total): 54.15%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.750)...
+  [IO] Saved NU_26 samples/weights (CESS=0.94, ESS=0.54) to .mat
+
+>>> PROCESSING STAGE 27 / 31 (Beta 0.750 -> 0.800)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 27: Flow_27 (Theta=0.75)
+============================================================
+  > Var(Source): 8.6130 | Var(Target): 10.4526
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 27 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 6592.8423 | E_KL: 833.1519 | D_KL: 463.3806
+Step 27 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 39.5863 | E_KL: 2.4712 | D_KL: 9.0400
+Step 27 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 3.9838 | E_KL: 0.4564 | D_KL: 0.3962
+Step 27 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 1.6657 | E_KL: 0.2689 | D_KL: -0.0272
+Step 27 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 1.2505 | E_KL: 0.2328 | D_KL: -0.0969
+Step 27 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: 1.0846 | E_KL: 0.2190 | D_KL: -0.1262
+Step 27 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: 0.9716 | E_KL: 0.2101 | D_KL: -0.1475
+Step 27 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: 0.8972 | E_KL: 0.2040 | D_KL: -0.1609
+Step 27 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: 0.8410 | E_KL: 0.1993 | D_KL: -0.1707
+  [Epoch 10/10] Avg Loss: 0.8037 | E_KL: 0.1960 | D_KL: -0.1770
+  [Propagation] Applying Flow_27 to NU_26...
+  [Metrics] CESS (Step): 93.27% | ESS (Total): 43.15%
+  [Adaptive] ESS < 50%. Performing Resampling (Weights reset)...
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.800)...
+  [IO] Saved NU_27 samples/weights (CESS=0.93, ESS=1.00) to .mat
+
+>>> PROCESSING STAGE 28 / 31 (Beta 0.800 -> 0.850)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 28: Flow_28 (Theta=0.75)
+============================================================
+  > Var(Source): 11.1530 | Var(Target): 13.2739
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 28 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 6222.9359 | E_KL: 571.7607 | D_KL: 434.0281
+Step 28 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 177.0314 | E_KL: 9.4257 | D_KL: 29.5882
+Step 28 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 5.6052 | E_KL: 0.4008 | D_KL: 0.6787
+Step 28 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 0.7191 | E_KL: 0.1586 | D_KL: -0.1830
+Step 28 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: 0.1336 | E_KL: 0.1212 | D_KL: -0.2654
+Step 28 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: -0.0587 | E_KL: 0.1101 | D_KL: -0.2953
+Step 28 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: -0.1673 | E_KL: 0.1055 | D_KL: -0.3162
+Step 28 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: -0.2448 | E_KL: 0.1033 | D_KL: -0.3342
+Step 28 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: -0.3063 | E_KL: 0.1020 | D_KL: -0.3495
+  [Epoch 10/10] Avg Loss: -0.3587 | E_KL: 0.1009 | D_KL: -0.3623
+  [Propagation] Applying Flow_28 to NU_27...
+  [Metrics] CESS (Step): 88.64% | ESS (Total): 88.64%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.850)...
+  [IO] Saved NU_28 samples/weights (CESS=0.89, ESS=0.89) to .mat
+
+>>> PROCESSING STAGE 29 / 31 (Beta 0.850 -> 0.900)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 29: Flow_29 (Theta=0.75)
+============================================================
+  > Var(Source): 14.6764 | Var(Target): 16.8297
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 29 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 16272.4673 | E_KL: 1236.2374 | D_KL: 633.3741
+Step 29 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 235.9430 | E_KL: 11.4493 | D_KL: 26.1246
+Step 29 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 3.4951 | E_KL: 0.1369 | D_KL: 0.4725
+Step 29 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: 0.5055 | E_KL: 0.0009 | D_KL: 0.1179
+Step 29 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: -0.0369 | E_KL: -0.0248 | D_KL: 0.0560
+Step 29 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: -0.2755 | E_KL: -0.0355 | D_KL: 0.0274
+Step 29 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: -0.4211 | E_KL: -0.0417 | D_KL: 0.0091
+Step 29 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: -0.5168 | E_KL: -0.0463 | D_KL: -0.0018
+Step 29 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: -0.5876 | E_KL: -0.0501 | D_KL: -0.0086
+  [Epoch 10/10] Avg Loss: -0.6328 | E_KL: -0.0526 | D_KL: -0.0127
+  [Propagation] Applying Flow_29 to NU_28...
+  [Metrics] CESS (Step): 90.59% | ESS (Total): 73.06%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.900)...
+  [IO] Saved NU_29 samples/weights (CESS=0.91, ESS=0.73) to .mat
+
+>>> PROCESSING STAGE 30 / 31 (Beta 0.900 -> 0.950)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 30: Flow_30 (Theta=0.75)
+============================================================
+  > Var(Source): 19.3171 | Var(Target): 22.3351
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 30 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 7547.7538 | E_KL: 342.9372 | D_KL: 461.9360
+Step 30 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 9.3256 | E_KL: 0.1073 | D_KL: 1.3918
+Step 30 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: -2.3940 | E_KL: -0.1417 | D_KL: -0.0611
+Step 30 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: -3.2885 | E_KL: -0.1666 | D_KL: -0.1568
+Step 30 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: -3.8236 | E_KL: -0.1780 | D_KL: -0.2228
+Step 30 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: -4.2518 | E_KL: -0.1841 | D_KL: -0.2837
+Step 30 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: -4.5925 | E_KL: -0.1880 | D_KL: -0.3347
+Step 30 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: -4.8525 | E_KL: -0.1903 | D_KL: -0.3753
+Step 30 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: -4.9947 | E_KL: -0.1896 | D_KL: -0.4025
+  [Epoch 10/10] Avg Loss: -5.1688 | E_KL: -0.1918 | D_KL: -0.4280
+  [Propagation] Applying Flow_30 to NU_29...
+  [Metrics] CESS (Step): 86.63% | ESS (Total): 53.88%
+  [Adaptive] ESS >= 50%. Skipping Resampling (Weights preserved).
+  [Adaptive] Performing Rejuvenation (Target: Beta 0.950)...
+  [IO] Saved NU_30 samples/weights (CESS=0.87, ESS=0.54) to .mat
+
+>>> PROCESSING STAGE 31 / 31 (Beta 0.950 -> 1.000)
+  [Data Prep] Resampling nu_{k-1} to create training source...
+  [Data Prep] Rejuvenating training source (MALA)...
+
+============================================================
+  TRAINING STEP 31: Flow_31 (Theta=0.75)
+============================================================
+  > Var(Source): 25.4142 | Var(Target): 33.1212
+[Model] Initializing Flow.
+        Periodic Bounds: [-3.141592653589793, 3.141592653589793]
+        Euclidean Bounds: [-6.0, 6.0]
+Step 31 [Ep 2/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 1/10] Avg Loss: 42247.0912 | E_KL: 1905.5226 | D_KL: 715.7489
+Step 31 [Ep 3/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 2/10] Avg Loss: 298.5484 | E_KL: 5.5620 | D_KL: 23.2519
+Step 31 [Ep 4/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 3/10] Avg Loss: 4.5002 | E_KL: -0.1772 | D_KL: 0.9515
+Step 31 [Ep 5/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 4/10] Avg Loss: -1.6156 | E_KL: -0.3240 | D_KL: 0.5506
+Step 31 [Ep 6/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 5/10] Avg Loss: -2.8189 | E_KL: -0.3553 | D_KL: 0.4776
+Step 31 [Ep 7/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 6/10] Avg Loss: -3.6517 | E_KL: -0.3755 | D_KL: 0.4233
+Step 31 [Ep 8/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 7/10] Avg Loss: -4.2104 | E_KL: -0.3900 | D_KL: 0.3892
+Step 31 [Ep 9/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 8/10] Avg Loss: -4.5115 | E_KL: -0.3991 | D_KL: 0.3740
+Step 31 [Ep 10/10]:   0%|          | 0/15 [00:00<?, ?it/s]  [Epoch 9/10] Avg Loss: -4.7438 | E_KL: -0.4056 | D_KL: 0.3607
+  [Epoch 10/10] Avg Loss: -4.9467 | E_KL: -0.4101 | D_KL: 0.3466
+  [Propagation] Applying Flow_31 to NU_30...
+  [Metrics] CESS (Step): 85.93% | ESS (Total): 37.14%
+  [Adaptive] ESS < 50%. Performing Resampling (Weights reset)...
+  [Adaptive] Performing Rejuvenation (Target: Beta 1.000)...
+  [IO] Saved NU_31 samples/weights (CESS=0.86, ESS=1.00) to .mat
+
+[Main] Sequential training completed.
+
+Process finished with exit code 0

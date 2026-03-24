@@ -1,0 +1,2200 @@
+Jeffreys Flow: Robust Boltzmann Generators for Multimodal
+Distributions via Distillation of Parallel Tempering
+Guang Lin1 , Christian Moya1 , Di Qi1 , and Xuda Ye1
+1
+
+Purdue University, Department of Mathematics, West Lafayette, IN 47907, USA
+March 9, 2026
+
+Abstract
+Boltzmann Generators and Stochastic Normalizing Flows have emerged as powerful frameworks for sampling complex target distributions, but their application to multimodal landscapes
+remains challenging due to mode collapse. We introduce Jeffreys Flow, a novel training framework that unifies the Energy KL (reverse KL) and Data KL (forward KL) divergences via the
+Jeffreys divergence. This symmetric objective ensures both global mode coverage and local
+sampling precision, enabling robust distillation of high-quality samples from Parallel Tempering
+trajectories. We provide a rigorous error analysis of the single-step transport map, establish
+its superiority over single-divergence training, and present a sequential distillation strategy that
+extracts high-fidelity flows from Parallel Tempering. The framework seamlessly integrates with
+Replica Exchange Stochastic Gradient Langevin Dynamics (reSGLD) for finite-sum potentials
+and with Path Integral Monte Carlo (PIMC) for quantum thermal sampling. Extensive numerical experiments across Gaussian mixtures, Rosenbrock, Rastrigin, solvated periodic systems,
+and quantum harmonic oscillators demonstrate superior sampling efficiency, robustness, and
+accelerated convergence compared to state-of-the-art baselines.
+
+1
+
+Introduction
+
+Boltzmann Generators [1] and Stochastic Normalizing Flows (SNF) [2] have emerged as powerful frameworks for sampling complex, high-dimensional target distributions π(x) ∝ e−U (x) that
+arise in computational physics, statistical inference, and molecular dynamics. By constructing diffeomorphic transport maps from a simple source distribution to the target, these methods enable
+efficient generation of configurations without the need for long Markov chain Monte Carlo (MCMC)
+simulations. Nevertheless, the sampling of multimodal distributions—where the energy landscape
+U (x) contains multiple metastable basins separated by high barriers—remains a fundamental challenge. In this regime, the gold-standard method is Parallel Tempering (PT) [3], which uses replica
+exchange across a temperature ladder to ensure ergodic exploration.
+Applying flow-based samplers to multimodal problems is notoriously difficult due to the pervasive issue of mode collapse. When a normalizing flow is trained by minimizing the Energy KL
+(reverse KL) divergence, the objective is inherently mode-seeking: the flow tends to concentrate
+probability mass on a single low-energy mode while ignoring other metastable states. Conversely,
+training with the Data KL (forward KL) divergence—equivalent to maximum likelihood estimation
+on a finite dataset—forces the flow to cover the entire support of the training samples, but its
+accuracy is strictly bounded by the quality and completeness of those samples. If the training data
+1
+
+fail to cross certain energy barriers, the learned flow will never discover the missing modes, and
+there is no mechanism to correct the bias using the physical energy function.
+Recent efforts to overcome mode collapse have largely focused on modifying the training objective or introducing auxiliary processes. Techniques such as LREX [4] and TemperFlow [5] employ
+temperature annealing to gradually bridge the gap between a simple prior and the complex target.
+Conditional Boltzmann Generators [6] rely on predefined reaction coordinates to steer sampling
+across barriers. While effective, these methods often incur substantial computational overhead due
+to sequential training ladders, continuous auxiliary simulations, or the need for domain-specific
+collective variables.
+Our fundamental philosophy diverges from these approaches and is notably simple: Parallel
+Tempering is already highly effective at exploring multimodal landscapes. Instead of trying to design
+a flow-based sampler that outperforms PT in raw exploration capability, we aim to distill the
+knowledge already captured by PT into a compact, fast-to-evaluate normalizing flow. By leveraging
+the high-quality, ergodically mixed samples produced by PT, we can train flows that faithfully
+reproduce the full multimodal geometry without requiring expensive annealing schedules or manual
+tuning of reaction coordinates.
+To achieve bidirectional fidelity—i.e., to ensure that the learned flow both covers all modes
+present in the PT samples (Data-KL property) and concentrates probability mass correctly within
+each mode (Energy-KL property)—we advocate for the Jeffreys divergence, the symmetrized KL
+divergence, as the optimal training objective. The Jeffreys divergence is a convex combination of
+the Energy KL and Data KL terms, providing a unified loss that simultaneously enforces global
+mode coverage and local sampling precision. We refer to the resulting method as Jeffreys Flow.
+The Jeffreys Flow framework offers several key advantages: it provides theoretical robustness,
+as the symmetric objective possesses a unique minimizer that acts as a physics-informed regularizer,
+guaranteeing a transport map whose KL divergence strictly outperforms the empirical target data
+while suppressing spurious modes. It also offers practical flexibility, with a variance-based scaling
+mechanism that automatically tunes the weighting between the two KL terms, requiring only a
+single hyperparameter θ ∈ [0, 1]. Furthermore, the framework seamlessly integrates with established
+samplers, naturally combining with Parallel Tempering for distillation, with Replica Exchange
+Stochastic Gradient Langevin Dynamics (reSGLD) for large-scale finite-sum potentials, and with
+Path Integral Monte Carlo (PIMC) for quantum thermal sampling.
+The main contributions of this paper are: (i) Introduction of Jeffreys Flow, a unified normalizing flow training framework that bridges the Energy KL and Data KL divergences via the
+Jeffreys divergence; (ii) rigorous error analysis of the single-step transport map obtained under
+the Jeffreys objective, establishing its superiority over single-divergence training; (iii) a sequential
+distillation strategy that extracts high-fidelity flows from Parallel Tempering trajectories, enabling
+one-shot generation of complex multimodal distributions; (iv) extension to stochastic-gradient settings through integration with reSGLD, including auxiliary networks for importance-weight estimation and variance-reduced rejuvenation; (v) application to quantum thermal sampling via a
+dimensionality-truncated flow trained on the low-frequency normal modes of a ring-polymer discretization, with systematic error correction through importance reweighting; and (vi) comprehensive numerical validation across a range of benchmark problems—Gaussian mixtures, Rosenbrock,
+Rastrigin, solvated periodic systems, and quantum harmonic oscillators—demonstrating superior
+sampling efficiency, robustness, and accelerated convergence compared to state-of-the-art baselines.
+The remainder of the paper is organized as follows. Section 2 reviews related work on flow-based
+samplers for multimodal distributions. Section 3 introduces the Jeffreys divergence and derives the
+single-step training objective. Section 4 details the sequential distillation procedure using Parallel
+Tempering. Sections 5 and 6 present applications to reSGLD and Path Integral Monte Carlo,
+2
+
+respectively. Section 7 reports numerical experiments, and Section 8 concludes with a summary
+and future directions.
+
+2
+
+Related Works
+
+The development of normalizing flows for sampling complex target distributions has seen rapid
+progress over the past decade. The foundational Boltzmann Generators [1] and Stochastic Normalizing Flows (SNF) [2] established the paradigm of training invertible neural networks by minimizing
+the Energy KL (reverse KL) divergence, which directly utilizes the target potential energy U (x).
+This approach yields high-fidelity samples in low-energy regions but is intrinsically mode-seeking
+and suffers from severe mode collapse when the energy landscape contains multiple metastable
+basins separated by high barriers.
+To mitigate mode collapse, a first line of research replaces the Energy KL with the Data KL
+(forward KL) objective. Gabrié et al. [7] train flows via Maximum Likelihood Estimation on samples
+collected on-the-fly from an adaptive MCMC chain. While this ensures mass-covering behavior, the
+resulting flow is strictly bounded by the quality of the underlying sampler; any bias or incomplete
+exploration of the training data is inherited by the generative model without a physical correction
+mechanism.
+A second line of work employs temperature annealing to gradually bridge a simple prior to the
+complex target. LREX (Learned Replica Exchange) [4] trains a flow to map configurations from a
+fast-mixing high-temperature replica directly to the low-temperature target, thereby skipping the
+intermediate temperature ladder of conventional parallel tempering. TemperFlow [5] replaces the
+KL objective with the squared L2 Wasserstein distance, theoretically guaranteeing non-vanishing
+gradients across isolated modes. These methods effectively cover multimodal supports but require
+sequential training of multiple networks or continuous auxiliary simulations, incurring substantial
+computational overhead.
+A third category leverages predefined reaction coordinates to steer the flow across barriers.
+Conditional Boltzmann Generators (CBG) [6] condition the flow on a reaction coordinate, enabling
+explicit scanning of transition pathways. This approach is powerful when suitable collective variables are known, but it relies on domain-specific knowledge and does not generalize to problems
+where such coordinates are unavailable.
+More recent strategies dynamically adjust the annealing schedule based on sample-quality metrics. Wang et al. [8] propose an adaptive tempering scheme that enforces a minimum Effective
+Sample Size (ESS) between consecutive intermediate distributions, ensuring sufficient overlap to
+avoid mode collapse. While theoretically sound, the resulting temperature ladder can become
+prohibitively fine-grained, and the optimization often stagnates at challenging phase transitions.
+Flow-based samplers have also been adopted in industrial and engineering settings for rare-event
+simulation and uncertainty quantification. Adaptive MCMC with normalizing-flow proposals [7] has
+been applied to high-dimensional inverse problems in geophysics and medical imaging. Tempered
+distribution flows [5] have been used for failure-probability estimation in structural engineering.
+Conditional Boltzmann Generators have been employed for free-energy reconstruction in molecular
+dynamics and drug discovery. These applications highlight the practical importance of robust
+multimodal sampling, but they also expose the limitations of existing methods: either they rely on
+costly sequential annealing, require manual tuning of reaction coordinates, or are limited by the
+quality of the training data.
+Unlike the above approaches, Jeffreys Flow does not attempt to replace or out-perform Parallel
+Tempering (PT) in raw exploration capability. Instead, it adopts a distillation philosophy: PT is
+
+3
+
+already highly effective at exploring multimodal landscapes, and we can leverage its high-quality,
+ergodically mixed samples to train a compact normalizing flow that faithfully reproduces the full
+multimodal geometry. The key innovation is the use of the Jeffreys divergence—the symmetrized
+KL divergence—as the training objective. By combining the Energy KL (which enforces local
+precision) and the Data KL (which enforces global mode coverage) into a single convex loss, Jeffreys Flow achieves a robust balance that eliminates mode collapse while retaining the physical
+constraints of the target distribution. This unified framework avoids sequential annealing (no need
+for temperature ladders), requires no reaction coordinates (fully unconditional), is compatible with
+stochastic-gradient settings via integration with reSGLD, and extends to quantum thermal sampling via dimensionality-truncated flows for Path Integral Monte Carlo.
+Thus, Jeffreys Flow provides a versatile, one-shot generation tool that combines the strengths
+of physics-based and data-driven training, offering a distinct alternative to existing flow-based
+samplers for multimodal problems.
+
+3
+
+Single-Step Training with Jeffreys Divergence
+
+In this section, we introduce the Jeffreys divergence and demonstrate its superiority over singledirection Energy KL or Data KL in generating high-quality samples through a theoretical argument.
+We begin by considering the single-step transport problem. Let U0 (x) and U1 (x) be two known
+potential functions on Rd , defining the distributions π0 (x) ∝ e−U0 (x) and π1 (x) ∝ e−U1 (x) , respectively. Since π0 and π1 are not directly tractable, we assume access to two distributions µ0 and µ1 ,
+which serve as empirical approximations consisting of samples from π0 and π1 . Our objective is to
+design a normalizing flow F on Rd such that the pushforward distribution satisfies F# π0 = π1 .
+
+3.1
+
+Construction of Jeffreys Divergence
+
+To construct the training objectives, we leverage the KL divergence in two distinct directions. First,
+the Energy KL minimizes the divergence from the generated distribution to the target, denoted as
+KL(F# π0 ∥π1 ). The density of the pushforward distribution F# π0 is given by:
+(F# π0 )(y) = π0 (F −1 (y)) det ∇F −1 (y) =
+
+π0 (x)
+,
+|det ∇F (x)|
+
+where y = F (x).
+
+Substituting this into the definition of the KL divergence and ignoring the normalizing constants
+of the potentials, we obtain:
+h
+i
+KL(F# π0 ∥π1 ) = EX∼π0 U1 (F (X)) − U0 (X) − log |det ∇F (X)| + const.
+By approximating the expectation over π0 with samples X0 drawn from the empirical source distribution µ0 , we derive the energy-based objective:
+h
+i
+KL(F# π0 ∥π1 ) ≈ EX0 ∼µ0 U1 (F (X0 )) − U0 (X0 ) − log |det ∇F (X0 )| .
+Conversely, the Data KL minimizes the divergence from the target distribution to the model,
+KL(π1 ∥F# π0 ). Relying on the invariance of the KL divergence under the diffeomorphism F −1 , we
+−1
+can rewrite this objective as KL(F#
+π1 ∥π0 ), which has a similar expression:
+−1
+(F#
+π1 )(x) = π1 (F (x))|det ∇F (x)| = π1 (y) det ∇F −1 (y)
+
+4
+
+−1
+
+,
+
+where x = F −1 (y).
+
+Following a similar derivation, the divergence becomes:
+h
+i
+KL(π1 ∥F# π0 ) = EY ∼π1 U0 (F −1 (Y )) − U1 (Y ) − log det ∇F −1 (Y ) + const.
+Using samples X1 from the empirical target dataset µ1 to approximate π1 , we arrive at the datadriven objective:
+i
+h
+KL(π1 ∥F# π0 ) ≈ EX1 ∼µ1 U0 (F −1 (X1 )) − U1 (X1 ) − log det ∇F −1 (X1 ) .
+Finally, we construct the Jeffreys divergence loss LJ [F ] as a linear combination of the Energy
+and Data KL objectives:
+h
+i
+LJ [F ] = λ0 EX0 ∼µ0 U1 (F (X0 )) − U0 (X0 ) − log |det ∇F (X0 )|
+h
+i
++ λ1 EX1 ∼µ1 U0 (F −1 (X1 )) − U1 (X1 ) − log det ∇F −1 (X1 ) ,
+(1)
+where λ0 , λ1 > 0 are weighting hyperparameters. The flow F can thus be trained by minimizing
+this objective using standard normalizing flow architectures, such as RealNVP or Spline Flows.
+Furthermore, we note that the KL divergence in the Jeffreys objective can be substituted with
+the Rényi divergence Dα (P ∥Q) to enhance robustness against mode collapse. Unlike the standard
+KL divergence, which is defined by the expectation EP [log(P/Q)], the Rényi divergence is driven
+by the power-law moment EP [(P/Q)α−1 ]. This scaling assigns significantly larger gradients to
+“extreme” particles located in the tails of the distribution or in isolated modes where the current
+model density is low. Consequently, the Rényi divergence imposes a much stricter penalty on
+missing modes compared to the KL divergence. We therefore recommend this objective when a
+large number of training samples is available to stabilize the high-variance weights, as it ensures
+more comprehensive coverage of complex multimodal targets.
+
+3.2
+
+Advantages of Jeffreys Divergence
+
+While the Energy KL divergence KL(F# π0 ∥π1 ) is theoretically capable of generating high-fidelity
+samples, it is intrinsically prone to mode collapse, as highlighted in [5]. This limitation arises
+because the Energy KL is mode-seeking; specifically, if the generated distribution F# π0 captures
+only a subset of the local modes of π1 while ignoring others, the divergence value can still remain
+negligible. Consequently, the Energy KL objective fails to distinguish between the true target
+distribution and a collapsed approximation that omits significant regions of the probability mass.
+Incorporating the Data KL objective effectively mitigates mode collapse, as the divergence
+KL(π1 ∥F# π0 ) diverges to infinity if the generated distribution F# π0 fails to cover any mode where
+π1 has significant mass. However, if the flow is trained exclusively using the Data KL, the quality
+of the generated samples is inherently bounded by the fidelity of the empirical approximation µ1
+to the true target π1 .
+To provide a clearer theoretical analysis of the sample quality, we simplify the setting by assuming that the source samples µ0 follow the exact distribution π0 , while µ1 represents an approximation
+of π1 containing error. Under this setting, the Jeffreys divergence loss LJ [F ] can be expressed as:
+
+
+π1 (X1 )
+LJ [F ] = λ0 KL(F# π0 ∥π1 ) + λ1 EX1 ∼µ1 log
+.
+F# π0 (X1 )
+Consequently, expressing the objective in terms of the pushforward density P (x) = (F# π0 )(x), we
+can rewrite the Jeffreys divergence as:
+Z
+Z
+P (x)
+π1 (x)
+LJ [P ] = λ0
+P (x) log
+dx + λ1
+µ1 (x) log
+dx.
+(2)
+π1 (x)
+P (x)
+Rd
+Rd
+5
+
+In the limiting case of pure Data KL (i.e., λ0 = 0), it is straightforward to observe that the
+unique global minimizer is trivially P∗ (x) = µ1 (x). Consequently, a flow trained exclusively with
+the Data KL objective is inherently bounded by the quality of the empirical samples, preventing the
+approximation error from decreasing below that of µ1 itself. However, for the Jeffreys divergence,
+we have the following theoretical guarantee:
+Theorem 1. If the weighting parameters satisfy λ0 , λ1 > 0, then:
+• The functional LJ [P ] is strictly convex with respect to the density P , ensuring a unique
+minimizer P∗ .
+• The minimizer satisfies the inequality KL(P∗ ∥π1 ) ⩽ KL(µ1 ∥π1 ).
+Proof. For the first claim, we compute the second-order derivative of LJ [P ] with respect to P :
+δ 2 LJ
+λ0
+λ1 µ1 (x)
+(x) =
++
+.
+2
+δP
+P (x)
+P (x)2
+Since λ0 , λ1 > 0 and the densities are positive, the second variation is strictly positive. Thus, LJ [P ]
+is strictly convex and admits a unique minimizer P∗ .
+For the second claim, the optimality condition implies LJ [P∗ ] ⩽ LJ [µ1 ]. Expanding this inequality yields:
+λ0 KL(P∗ ∥π1 ) + λ1 KL(µ1 ∥P∗ ) ⩽ λ0 KL(µ1 ∥π1 ) + λ1 KL(µ1 ∥µ1 ).
+Using the properties KL(µ1 ∥µ1 ) = 0 and KL(µ1 ∥P∗ ) ⩾ 0, we obtain:
+λ0 KL(P∗ ∥π1 ) ⩽ λ0 KL(µ1 ∥π1 ).
+Dividing by λ0 > 0 completes the proof.
+
+■
+
+Theorem 1 establishes that the optimized pushforward distribution P∗ (x) = (F# π0 )(x) achieves
+a strictly lower KL divergence relative to the target π1 compared to the empirical distribution µ1 .
+This inequality provides the theoretical foundation for our distillation approach, demonstrating
+that a flow trained via Jeffreys divergence is capable of surpassing the quality of its own training
+data. Intuitively, this enhancement arises because the objective function is not solely reliant on the
+empirical samples; the Energy KL term injects exact physical information from the potential U (x)
+into the optimization process. While the Data KL term ensures global mode coverage by anchoring
+the flow to the empirical support, the Energy KL term acts as a physics-informed regularizer,
+relaxing the generated samples towards the true Boltzmann equilibrium and thereby correcting the
+biases or noise inherent in the finite dataset µ1 .
+Moreover, the symmetric structure of the Jeffreys divergence offers a rigorous guarantee on the
+stability of importance weights. Let P and Q be two probability measures on Rd with strictly
+positive densities P (x) and Q(x). We define the δ-instability set Aδ as the region where the loglikelihood ratio exceeds a threshold δ > 0:
+
+
+P (x)
+d
+Aδ = x ∈ R : log
+⩾δ .
+(3)
+Q(x)
+The following lemma establishes that minimizing the Jeffreys divergence strictly bounds the probability mass of this instability set under both distributions.
+
+6
+
+Lemma 1. Assume the KL divergences between P and Q are bounded by ϵ, i.e., KL(P ∥Q) ⩽ ϵ
+and KL(Q∥P ) ⩽ ϵ. The probability of the instability set Aδ is bounded under both P and Q:
+max (P (Aδ ), Q(Aδ )) ⩽
+
+2ϵ
+.
+δ(1 − e−δ )
+
+(4)
+
+P (x)
+Proof. Let f (x) = (P (x) − Q(x)) log Q(x)
+. By definition, the Jeffreys divergence satisfies
+
+Z
+J (P ∥Q) := KL(P ∥Q) + KL(Q∥P ) =
+Rd
+
+f (x)dx ⩽ 2ϵ
+
+We partition the instability set Aδ into two disjoint subsets:
+S+ = {x ∈ Rd : P (x) ⩾ eδ Q(x)},
+
+S− = {x ∈ Rd : Q(x) ⩾ eδ P (x)}
+
+P (x)
+−δ
+On the set S+ , we have log Q(x)
+⩾ δ and P (x) − Q(x) = P (x)(1 − Q(x)
+P (x) ) ⩾ P (x)(1 − e ).
+Therefore, the contribution to the divergence is bounded below by:
+Z
+Z
+f (x)dx ⩾
+P (x)(1 − e−δ )δ dx = δ(1 − e−δ )P (S+ ).
+S+
+
+S+
+
+P (x)
+−δ
+Similarly, on the set S− , we have log Q(x)
+P (x) ⩾ δ and Q(x)−P (x) = Q(x)(1− Q(x) ) ⩾ Q(x)(1−e ).
+Thus, the contribution is:
+Z
+Z
+f (x)dx ⩾
+Q(x)(1 − e−δ )δdx = δ(1 − e−δ )Q(S− ).
+S−
+
+S−
+
+Summing these inequalities yields J (P ∥Q) ⩾ δ(1 − e−δ )(P (S+ ) + Q(S− )). Using the bound
+J (P ∥Q) ⩽ 2ϵ, we obtain:
+P (S+ ) ⩽
+
+2ϵ
+δ(1 − e−δ )
+
+and
+
+Q(S− ) ⩽
+
+2ϵ
+.
+δ(1 − e−δ )
+
+Finally, to bound the full set Aδ under P , we note that on S− , P (x) ⩽ e−δ Q(x). Hence,
+P (S− ) ⩽ e−δ Q(S− ). Since P (Aδ ) = P (S+ ) + P (S− ), this implies that the total mass of the
+instability set vanishes as O(ϵ/δ). The derivation for Q(Aδ ) is symmetric.
+■
+Applying Lemma 1 to our specific context where P = F# π0 and Q = π1 , we obtain the following
+main result concerning the stability of the generated samples.
+Theorem 2. Suppose the trained flow F satisfies KL(F# π0 ∥π1 ) ⩽ ϵ and KL(π1 ∥F# π0 ) ⩽ ϵ. Then
+for any δ > 0, the probability that the log-likelihood ratio deviates by more than δ is bounded by:
+
+
+
+
+
+F# π0 (X)
+F# π0 (Y )
+2ϵ
+⩾ δ , PY ∼π1 log
+⩾δ
+⩽
+max PX∼F# π0 log
+.
+(5)
+π1 (X)
+π1 (Y )
+δ(1 − e−δ )
+This theorem guarantees that with high probability, the generated distribution F# π0 and the
+target π1 are mutually absolutely continuous with bounded density ratios. Consequently, this
+prevents mode collapse (where π1 ≫ F# π0 ) and spurious mode generation (where F# π0 ≫ π1 )
+asymptotically as the training error ϵ → 0.
+
+7
+
+3.3
+
+Unbiasedness via Importance Weights
+
+Although the trained flow F approximates the transport between distributions, it rarely yields an
+exact mapping where F# π0 = π1 . However, we can recover unbiased estimators for expectations
+with respect to the target π1 via importance sampling (IS). The statistical validity of this approach
+relies on the absolute continuity of the generated distribution with respect to the target, meaning
+it must adequately cover the support of π1 .
+The density of the pushforward distribution, evaluated at a generated sample y = F (x), is given
+by the change-of-variable formula:
+(F# π0 )(y) = π0 (F −1 (y)) det ∇F −1 (y) =
+
+π0 (x)
+.
+|det ∇F (x)|
+
+Consequently, the unnormalized importance weight w(y) is defined as the likelihood ratio between
+the target and the proposal distributions:
+
+
+π1 (y)
+w(y) =
+∝ exp − U1 (y) + U0 (x) + log |det ∇F (x)| ,
+(F# π0 )(y)
+
+(6)
+
+where the partition function normalization constants are omitted, as they are handled via selfnormalized importance sampling. Note that the weight w(y) corresponds directly to the likelihood
+ratio analyzed in Theorem 2. A critical prerequisite for the stability of this reweighting scheme is
+that the trained map F must prevent mode collapse. If F# π0 assigns negligible probability mass
+to regions where π1 (y) is significant, the weights w(y) will exhibit high variance or diverge.
+For notational convenience, we abstract the single-step Jeffreys Flow operation as:
+(F, w) = JeffreysFlow(µ0 , µ1 ; U0 , U1 ).
+This notation encapsulates the entire procedure: training the transport map F using the empirical
+samples µ0 , µ1 and potential functions U0 , U1 , and subsequently computing the associated importance weights w.
+The trained flow (F, w) can be utilized to generate new, reweighted samples. Consider a
+weighted discrete distribution approximating the source π0 :
+ν0 (x) =
+
+N
+X
+
+αi δ(x − xi ),
+
+i=1
+
+where the particles xi ∈ Rd and weights αi ⩾ 0 satisfy
+produces the target approximation ν1 (x):
+
+PN
+
+i=1 αi = 1. Applying the flow (F, w) to ν0
+
+PN
+ν1 (x) =
+
+i=1 αi w(yi )δ(x − yi )
+,
+PN
+j=1 αj w(yj )
+
+(7)
+
+where yi = F (xi ). This expression can be shorthandedly written as ν1 = (F, w)# ν0 . The statistical
+efficiency of this resulting ensemble is quantified by the Conditional Effective Sample Size (CESS):
+P
+
+N
+i=1 αi w(yi )
+
+CESS(F, w) = PN
+
+i=1 αi w(yi )
+
+8
+
+2
+2
+
+.
+
+(8)
+
+The sample quality of the flow F is directly assessed by the CESS, which is bounded by N . In the
+specific case where the initial ensemble is uniform (αi = 1/N ), the CESS reduces to the standard
+Effective Sample Size (ESS) of the mapped distribution ν1 derived in (7):
+P
+2
+N
+w(y
+)
+i
+i=1
+.
+(9)
+ESS(ν1 ) = PN
+2
+i=1 w(yi )
+
+3.4
+
+Choice of Hyperparameters λ0 , λ1
+
+Recall the definition of the Jeffreys divergence in (1):
+h
+i
+LJ [F ] = λ0 EX0 ∼µ0 U1 (F (X0 )) − U0 (X0 ) − log |det ∇F (X0 )|
+h
+i
++ λ1 EX1 ∼µ1 U0 (F −1 (X1 )) − U1 (X1 ) − log det ∇F −1 (X1 ) .
+We employ a variance-based scaling for the weights:
+λ0 = θ Var(µ0 ),
+
+λ1 = (1 − θ) Var(µ1 ),
+
+where Var(·) denotes the trace of the covariance, and θ ∈ [0, 1] is a balancing hyperparameter.
+We scale the loss weights by the variance to implicitly balance the gradients: when transforming
+a high-variance source µ0 to a low-variance target µ1 , the Data KL provides sufficient geometric
+constraints to enforce global mode coverage without compromising the fine-grained convergence
+driven by the Energy KL.
+The algorithm’s performance is generally robust to the specific choice of θ. However, excessively
+large values (biasing towards Energy KL) can still trigger sudden mode collapse, resulting in a
+precipitous drop in CESS. In practice, we determine the strategy for θ by monitoring CESS and
+other performance parameters. Theoretically, the framework supports adaptive strategies—such
+as dynamically adjusting θ or introducing additional PT sampling temperatures—but we do not
+implement such adaptive mechanisms in this article.
+
+4
+
+Sequential Distillation from Parallel Tempering
+
+In this section, we apply the Jeffreys Flow framework to accelerate and distill PT simulations.
+Adopting the Boltzmann Generator methodology [1], we construct a transport map from a tractable
+prior π0 ∝ e−U0 to the target πtarget ∝ e−Utarget .
+We define a bridging path via a sequence of interpolation coefficients 0 = β0 < β1 < · · · < βM =
+1. This sequence induces the potential functions Uk (x) and corresponding distributions {πk }M
+k=0 :
+Uk (x) = (1 − βk )U0 (x) + βk Utarget (x),
+
+πk (x) ∝ e−Uk (x) .
+
+At k = 0, U0 corresponds to the simple base distribution. The intermediate distributions πk
+smoothly bridge the geometric gap to the target Utarget (x) = UM (x).
+To sample from these distributions, we employ PT by simulating M + 1 replicas concurrently.
+The k-th replica evolves according to the Langevin dynamics governed by Uk :
+√
+dXk (t) = −∇Uk (Xk (t))dt + 2dBk (t).
+(10)
+Unlike standard thermal PT which anneals temperature, our approach bridges the topological gap
+between the simple base potential U0 and the complex target Utarget . These ergodic properties are
+9
+
+propagated to the target distribution via exchanges between adjacent replicas. The swap between
+configurations xk−1 and xk is accepted with probability min{1, e−∆Hk }, where the energy cost is:
+∆Hk = Uk−1 (xk ) + Uk (xk−1 ) − Uk−1 (xk−1 ) − Uk (xk )
+h
+
+i
+= (βk − βk−1 ) Utarget (xk−1 ) − U0 (xk−1 ) − Utarget (xk ) − U0 (xk ) .
+This mechanism ensures efficient mixing across the entire path, preventing the chains from being
+trapped in local minima.
+Our objective is to learn a sequence of flows {Fk }M
+k=1 transporting probability mass between
+adjacent steps:
+(Fk )# πk−1 ≈ πk , k = 1, . . . , M.
+Theoretically, we train each flow using the Jeffreys Divergence objective:
+(Fk , wk ) = JeffereysFlow(µk−1 , µk ; Uk−1 , Uk ),
+where µ denotes empirical approximations produced by PT simulations. However, biased PT
+samples usually have bias if used directly.
+To strictly enforce unbiased sampling, we employ a sequential distillation strategy. We initialize
+an ensemble ν0 from the prior. At each step k, we construct a refined source µ′k−1 by resampling
+νk−1 and applying MALA rejuvenation to recover the local geometry:
+µ′k−1 = Rejuvenation(Resample(νk−1 )).
+Subsequently, we train Fk by minimizing the Jeffreys divergence between this active ensemble and
+the reference µk :
+(Fk , wk ) = JeffereysFlow(µ′k−1 , µk ; Uk−1 , Uk ),
+
+k = 1, . . . , M.
+
+We validate efficiency via the CESS and generate the next high-fidelity ensemble via pushforward:
+νk = (Fk , wk )# νk−1 .
+The complete procedure is summarized in Algorithm 1.
+
+10
+
+Algorithm 1: Jeffreys Flow: Sequential Distillation from Parallel Tempering
+1 Input: Target potential Utarget (x); Base potential U0 (x); Temperatures
+0 < β1 < · · · < βM = 1; Reference samples {µk }M
+k=1 ; Flow balancing parameter θ.
+M
+2 Output: Distilled model {(Fk , wk )}k=1 and generated ensemble νM .
+
+// 1. Initialization
+3 Draw samples from base distribution ν0 ∼ π0 ∝ e−U0 and set weights w0 ≡ 1/N .
+// 2. Sequential Distillation
+4 for k = 1 to M do
+5
+Set intermediate potential: Uk (x) = (1 − βk )U0 (x) + βk Utarget (x).
+6
+
+// A. Training Data Construction
+Construct source ensemble µ′k−1 by resampling and rejuvenation:
+µ′k−1 ← Rejuvenation(Resample(νk−1 , wk−1 ); πk−1 ).
+
+7
+8
+
+// B. Flow Optimization
+Compute loss weights λ0 = θ Var(µ′k−1 ) and λ1 = (1 − θ) Var(µk ).
+Train flow map minimizing Jeffreys divergence:
+Fk ← arg min LJ [F ; µ′k−1 , µk , Uk−1 , Uk ].
+F
+
+9
+
+// C. Propagation and Reweighting
+Pushforward particles and update weights:
+νk ← (Fk , wk )# νk−1 .
+
+10
+11
+
+// D. Adaptive Rejuvenation
+if ESS(νk ) < 50% then
+Resample νk and reset weights wk ≡ 1/N :
+νk ← Resample(νk , wk ),
+
+wk ≡
+
+1
+.
+N
+
+end
+Apply MCMC rejuvenation to νk targeting πk .
+14 end
+15 return {(Fk , wk )}M
+k=1 , νM
+12
+13
+
+Finally, we remark that the Jeffreys Flow framework is readily applicable to bounded periodic
+domains. This adaptation requires only replacing the Gaussian base distribution with a uniform
+distribution and employing circular spline flow to enforce the periodic boundary conditions.
+
+5
+
+Application in Replica Exchange SGLD
+
+The Replica Exchange Stochastic Gradient Langevin Dynamics (reSGLD) [9] provides a scalable
+framework for sampling from multimodal distributions where the potential energy function admits
+
+11
+
+a finite-sum structure:
+
+L
+
+1X i
+Utarget (x) =
+V (x),
+L
+i=1
+
+d
+where {V i (x)}L
+i=1 represents a collection of component potentials in R .
+
+In large-scale scenarios
+where L is significant, evaluating the full gradient is computationally prohibitive, necessitating the
+use of stochastic mini-batches. To address this, we extend the Boltzmann Generator framework
+to learn a transport map from a Gaussian prior π0 (x) to the target πtarget (x). The intermediate
+potentials are defined by the interpolation:
+L
+
+Uk (x) = (1 − βk )U0 (x) +
+
+βk X i
+V (x).
+L
+
+(11)
+
+i=1
+
+Consequently, the standard Langevin dynamics is replaced by the SGLD. The discretized update
+rule with step size h is given by:
+
+ √
+Xk (t + h) = Xk (t) − h (1 − βk )U0 (Xk (t)) + βk V ĩ (Xk (t)) + 2h(Bk (t + h) − Bk (h)),
+(12)
+where the mini-batch index ĩ is uniformly sampled at each step and shared across all temperature
+replicas to induce correlated noise.
+To facilitate exchanges between adjacent temperature replicas xk−1 and xk , we estimate the
+energy difference ∆Hk using the current stochastic mini-batch ĩ:
+h
+
+i
+∆Hkĩ = (βk − βk−1 ) V ĩ (xk−1 ) − U0 (xk−1 ) − V ĩ (xk ) − U0 (xk ) .
+ĩ
+
+Since the mini-batch index ĩ is a random variable, the direct exponentiation e−∆Hk yields a biased
+estimator of the true transition probability due to Jensen’s inequality (the non-linearity of the
+exponential function). To correct for this bias and ensure detailed balance is approximately satisfied,
+reSGLD adopts a variance-corrected acceptance criterion:
+n
+
+τ o
+αk = min 1, exp −∆Hkĩ − σk2 , σk2 ≈ Var(∆Hkĩ ),
+2
+where τ ∈ (0, 1] is a fixed parameter, and σk2 is the empirical variance of the stochastic energy
+difference ∆Hkĩ , estimated on-the-fly during the simulation. Thus, the reSGLD is obtained via
+combining the parallel simulation of M + 1 SGLD chains and the modified swapping rate regime.
+While reSGLD generates a sequence of sample ensembles {µk }M
+k=0 analogous to standard PT, it
+inherently sacrifices theoretical exactness. Notably, reSGLD fails to maintain the asymptotic accuracy of the generated samples µk , even in the limit of vanishing step size h → 0. This fundamental
+limitation arises because the computation of the swapping probability αk relies on stochastic energy
+differences, making it intrinsically noisy and inaccurate, thereby preventing the detailed balance
+condition from being strictly satisfied.
+Fortunately, Jeffreys Flow effectively circumvents these limitations. Recall that the loss function
+for training the transport map Fk is defined as:
+h
+i
+LJ [Fk ] = λk−1 EX0 ∼µ′k−1 Uk (Fk (X0 )) − Uk−1 (X0 ) − log |det ∇Fk (X0 )|
+h
+i
++ λk EX1 ∼µk Uk−1 (Fk−1 (X1 )) − Uk (X1 ) − log det ∇Fk−1 (X1 ) ,
+
+12
+
+where the distribution µ′k−1 is the distribution resampled from νk−1 in the validation set, Crucially,
+unbiased estimators for the potential energy differences (e.g., Uk (y) − Uk−1 (x)) are readily available
+even when Utarget involves a large sum, as the stochasticity in the mini-batch gradient updates
+averages out during optimization. Consequently, random fluctuations in the potential function do
+not bias the convergence of the flow map Fk .
+However, a direct application of importance sampling is infeasible when Utarget (x) takes the
+form of a finite sum. This is because the weight function,
+
+
+wk (y) ∝ exp − Uk (y) + Uk−1 (x) + log |det ∇Fk (x)| , y = Fk (x),
+(13)
+involves the nonlinear exponential function, which prevents the direct construction of an unbiased
+estimator for wk (y) using stochastic mini-batch gradients.
+To address this challenge, we train auxiliary networks ϕ, ψ : Rd → R to minimize the L2 loss:
+h
+i
+2
+L2 [ϕ, ψ] = EX0 ∼νk−1 Uk (Fk (X0 )) − Uk−1 (X0 ) + ϕ(X0 ) − ψ(Fk (X0 )) ,
+(14)
+where Uk and Uk−1 are evaluated using their unbiased stochastic approximations (with the identical
+mini-batch index ĩ). We then utilize ψ(y) − ϕ(x) − log | det ∇Fk (x)| as a surrogate for the logimportance weights log wk (y). Here, we specifically choose the full generated ensemble νk−1 , instead
+of the rejuvenated subset µ′k−1 , as the training set. This decision is motivated by two factors: first,
+νk−1 contains significantly more samples than µ′k−1 , providing better variance reduction; second,
+optimizing an MLP for weight estimation is computationally much cheaper compared to training
+the normalizing flow itself, as it avoids expensive log-determinant evaluations.
+Notably, we employ two networks, ϕ and ψ, simultaneously to approximate the energy difference
+between Uk−1 (X0 ) and Uk (Fk (X0 )). While it is theoretically possible to train ϕ and ψ independently, their joint optimization offers practical advantages. In the spline flow architecture, the
+trained transport map Fk reduces to an identity transformation near the domain boundaries. Consequently, the energy difference Uk (Fk (X0 )) − Uk−1 (X0 ) approaches zero in these regions, allowing
+the neural networks to capture it more easily and accurately.
+We remark that evaluating the exact energy difference required for the standard MetropolisHastings acceptance step in MALA is computationally prohibitive due to the finite-sum structure of
+the target potential function. To address this, we replace the standard MALA with an Unadjusted
+Langevin Algorithm (ULA) governed by a Stochastic Variance-Reduced Gradient (SVRG) estimator. Specifically, at the beginning of the rejuvenation phase, we compute the exact full gradient at
+an initial reference point. During the subsequent Langevin iterations, we compute the stochastic
+gradients using random mini-batches and adjust them using the pre-computed full gradient to significantly reduce the variance. This variance-reduced stochastic gradient minimizes the temporal
+discretization error in the simulated Langevin dynamics. Consequently, we can safely bypass the
+Metropolis accept-reject step—effectively accepting every proposal—while still maintaining high
+asymptotic accuracy for the generated ensemble.
+Furthermore, we discuss the approximation errors inherent in the combined reSGLD and Jeffreys
+Flow framework. Similar to the standard formulation, the accuracy of the generated distribution
+hinges strictly on the unbiasedness of the importance sampling weights. If these weights are neglected or inaccurately approximated by the auxiliary neural networks, approximation errors will
+unroll and amplify exponentially along the temperature ladder. This sensitivity imposes a stringent precision requirement on the weight function training. Fortunately, the MSE loss function
+governing ϕ and ψ is generally well-behaved and straightforward to minimize, preventing weight
+estimation from becoming a computational bottleneck. Ultimately, with adequately optimized
+13
+
+weights, the framework not only achieves sampling precision comparable to the baseline reSGLD,
+but significantly surpasses it in generating independent samples at a vastly accelerated rate.
+Despite the fact that the unbiased property of stochastic gradients allows for the correct training of auxiliary networks ϕ and ψ to approximate the weight function, in many practical scenarios,
+it is still highly recommended to use the native, exact formulation to compute the precise weight
+function. This recommendation is supported by two primary reasons: First, neural network approximations inherently introduce natural errors, whereas exact sampling imposes an exceptionally high
+demand on the precision of the weight function. In contrast, the training of the normalizing flow
+itself is far less sensitive to such precision requirements, meaning that utilizing stochastic gradients
+for flow optimization typically incurs no noticeable degradation in accuracy. Second, computing
+the exact weight function requires evaluating the full potential Uk only once at the conclusion of
+each temperature step, which generally does not impose a significant computational burden. By
+comparison, the frequent temperature exchanges inherent to reSGLD demand evaluating energy
+differences repeatedly, resulting in a substantially higher asymptotic complexity. Therefore, the
+computational cost of a single exact evaluation for the weight function is entirely justifiable and
+acceptable.
+
+6
+
+Application in Path Integral Monte Carlo
+
+Sampling from probability measures defined on function spaces is an important problem in statistical physics, particularly in the context of Path Integral Monte Carlo (PIMC). In this formulation,
+the quantum mechanical thermal equilibrium of a system is naturally represented as a classical
+probability distribution over an infinite-dimensional space of periodic imaginary-time paths.
+To formalize the problem, we consider a quantum system in Rd governed by the Schrödinger
+operator (Hamiltonian):
+1
+Ĥ = − ∆ + V (x),
+(15)
+2
+where ∆ is the Laplacian and V : Rd → R is the physical potential function. We are interested in
+the thermal Boltzmann ensemble e−β Ĥ at inverse temperature β.
+By the path integral formulation, the density matrix of this ensemble corresponds exactly to a
+probability measure on the space of continuous periodic paths x : [0, β] → Rd (often referred to as
+ring polymers). This measure is determined by the Euclidean action functional:
+Z β
+U (x(·)) =
+0
+
+
+1
+2
+|ẋ(t)| + V (x(t)) dt.
+2
+
+(16)
+
+In this setting, the kinetic energy term 12 |ẋ(t)|2 induces a Gaussian reference measure tying the
+path into a closed ring, while the nonlinear potential V (x(t)) modifies the local density. The target
+distribution for the simulation is then formally represented by:
+π(x(·)) ∝ e−U (x(·)) .
+Consequently, generating samples from this infinite-dimensional measure provides a direct and
+exact framework for evaluating thermodynamic properties and quantum mechanical observables.
+To practically sample from the infinite-dimensional target measure π(x(·)) via computational
+methods, we establish a finite-dimensional approximation. A standard approach discretizes the
+imaginary-time interval [0, β] into N equal segments ∆t = β/N . The continuous path x(t) is thus
+represented by a discrete set of beads x1 , . . . , xN ∈ Rd , subject to the periodic boundary condition
+14
+
+xN +1 = x1 . The continuous action functional in (16) is consequently approximated by the discrete
+ring-polymer potential:
+N
+
+N
+
+j=1
+
+j=1
+
+N X
+β X
+|xj − xj+1 |2 +
+V (xj ).
+2β
+N
+
+UN (x1:N ) =
+
+(17)
+
+In this discretized representation, the adjacent beads are tightly coupled by harmonic springs
+with a stiffness proportional to N/β. As the resolution N increases, this strong binding force induces
+severe ill-conditioning, manifesting as high-frequency oscillatory modes that drastically impede the
+mixing rate of standard sampling algorithms. To resolve this stiffness and decouple the harmonic
+interactions, it is advantageous to transform the system into the frequency domain. Assuming N
+is an even integer, we apply a discrete Fourier transform to map the Cartesian coordinates x1:N
+−1
+into the normal mode (Fourier) coordinates {ξk }N
+k=0 :
+N
+
+β X
+ξk =
+xj cj,k ,
+N
+
+k = 0, 1, . . . , N − 1.
+
+(18)
+
+j=1
+
+Here, the orthogonal transformation matrix elements cj,k are explicitly given by:
+1
+(−1)j
+cj,0 = √ , cj,N −1 = √
+β
+β
+r
+r
+
+
+
+
+2
+2πkj
+2
+2πkj
+cj,2k−1 =
+sin
+, cj,2k =
+cos
+,
+β
+N
+β
+N
+
+for k = 1, . . . ,
+
+N
+− 1.
+2
+
+This transformation is rigorously unitary under the weighted inner product corresponding to the
+measure, satisfying the exact orthogonality condition:
+N
+
+β X
+cj,k cj,k′ = δk,k′ .
+N
+j=1
+
+By transitioning to this normal mode basis, the stiff harmonic interaction term is exactly diagonalized:
+N
+N −1
+1X 2
+N X
+|xj − xj+1 |2 =
+ωk |ξk |2 ,
+2β
+2
+j=1
+
+k=0
+
+−1
+where the intrinsic ring-polymer frequencies {ωk }N
+k=0 governing each Fourier mode are analytically
+
+defined by:
+ω0 = 0,
+
+2N
+sin
+ω2k−1 = ω2k =
+β
+
+
+
+
+kπ
+,
+N
+
+for k = 1, . . . ,
+
+N
+.
+2
+
+Consequently, the discrete potential function UN can be equivalently expressed in the decoupled
+Fourier coordinates as:
+ NX
+
+N −1
+N
+−1
+1X 2
+β X
+2
+UN (ξ0:N −1 ) =
+ωk |ξk | +
+V
+ξk cj,k .
+(19)
+2
+N
+j=1
+
+k=0
+
+k=0
+
+By sampling these finite normal modes ξ0:N −1 , we systematically construct a continuous function
+that serves as an accurate approximation to the infinite-dimensional statistical measure. Due to the
+symmetric nature of the Lie-Trotter splitting applied in the potential discretization, this Fourier
+15
+
+representation achieves a numerical convergence bounded by an expected asymptotic approximation
+error of O(1/N 2 ).
+A fundamental challenge in this framework is that achieving high-accuracy simulations demands
+a very large number of discrete modes N . Simultaneously, standard Parallel Tempering (PT)
+necessitates maintaining multiple system replicas across a temperature ladder. For high-dimensional
+target potentials, this multiplicative expansion of the state space results in severe memory overhead
+and prohibitive computational costs. This dimensionality bottleneck also identically afflicts flowbased generation, where the cost of training a normalizing flow scales poorly—often exponentially—
+with the state space dimension N .
+Fortunately, this limitation can be effectively mitigated through a physics-informed mode truncation technique. Rather than training a high-dimensional flow over all N variables, we construct
+the Boltzmann Generator exclusively for the first N0 low-frequency modes (e.g., N0 = 8), governed
+by the truncated potential UN0 (ξ0:N0 −1 ). For the remaining high-frequency modes, the flow simply
+applies an identity mapping. Because the low-frequency modes govern the macroscopic topological transitions of the ring polymer, this truncated flow is sufficient to capture the essential global
+geometry of the target distribution. The residual discretization errors from the unmodified highfrequency modes are subsequently rigorously corrected via importance sampling using the exact,
+full potential UN (ξ).
+A practical base Gaussian distribution e−U0 (ξ0:N −1 ) approximating the target e−UN (ξ0:N −1 ) can be
+explicitly constructed by approximating the nonlinear interaction. Let V̄ (x) be a purely harmonic
+function approximating the behavior of V (x) within its principal basin in Rd . Evaluating the
+kinetic term analytically (noting that ω0 = 0), the discrete potential can be well-approximated by
+the tractable form:
+
+UN (ξ0:N −1 ) ≈ U0 (ξ0:N −1 ) := V̄
+
+ξ
+√0
+β
+
+
+
+N −1
+
+1X 2
+ωk |ξk |2 .
++
+2
+
+(20)
+
+k=1
+
+Because the harmonic approximation V̄ maintains a quadratic form, the surrogate action U0 strictly
+decouples into independent quadratic functions across all Fourier modes ξ0:N −1 . This exact factorization provides a highly efficient and easily samplable Gaussian base distribution that serves as
+the starting state for the normalizing flow.
+The Jeffreys Flow framework can now be applied to the truncated potential UN0 (ξ0:N0 −1 ) using
+the Gaussian base U0 . The same Jeffreys divergence objective (Section 3) is employed, balancing data fidelity with energy regularization. In practice, we follow a three-step procedure: (i)
+low-dimensional training (select a small cutoff N0 and train the Jeffreys Flow to approximate the
+low-dimensional truncated potential UN0 (ξ0:N0 −1 )); (ii) optional flow distillation (perform sequential distillation on the Jeffreys Flow (Section 4) to further improve the expected ESS and eliminate
+local training biases); and (iii) high-dimensional reweighting (apply the generated low-dimensional
+flow, padded with identity mappings for high-frequency modes, to propose samples for the full configuration space, computing importance weights using the exact evaluation of the high-dimensional
+potential UN (ξ0:N −1 ) to ensure asymptotic unbiasedness).
+The integration of Jeffreys Flow with PIMC offers several key advantages over conventional sampling methods: accelerated sampling (the flow produces i.i.d. samples after a single forward pass,
+bypassing the slow mixing of conventional PIMC chains that suffer from high-frequency stiffness);
+scalability (training cost scales with N0 (typically < 10) rather than N (often > 100), making highaccuracy quantum simulations computationally feasible); and preservation of quantum effects (the
+low-frequency modes capture essential quantum tunneling and delocalization, while high-frequency
+modes are treated exactly via reweighting, preserving the asymptotic O(N −2 ) convergence of the
+16
+
+Lie-Trotter splitting).
+
+7
+
+Numerical Experiments
+
+In this section, we evaluate the performance of Jeffreys Flow on a diverse set of benchmark distributions. We employ the proposed framework as a Boltzmann Generator to learn an invertible
+mapping that gradually transitions from a simple Gaussian base distribution to the complex target
+distribution. The temperature ladder for the accompanying PT simulations is selected to maintain
+a swapping rate between 40% and 50%, thereby ensuring a robust stream of reference samples for
+the training of Jeffreys Flow.
+
+7.1
+
+Single-Step Transport
+
+We evaluate Jeffreys Flow on a single-step transport problem, mapping a 2D Gaussian to complex
+multimodal targets. We compare the Jeffreys Divergence against the baselines of pure Data KL
+and pure Energy KL to assess mode coverage and approximation accuracy.
+7.1.1
+
+Experimental Setup
+
+We consider four potential energy landscapes U (x1 , x2 ): (i) Three Well potential: U (x1 , x2 ) =
+3(x21 − 1)2 + 3(x22 − 1)2 + 3 sin(x1 + 2x2 ); (ii) Himmelblau potential: U (x1 , x2 ) = 0.2(x21 + x2 −
+1
+11)2 p
++ 0.2(x1 + x22 − 7)2 ; (iii) Annulus potential: U (x1 , x2 ) = 10(r6 − 8r4 + 16r2 + 1) 3 , where
+r = x21 + x22 ; and (iv) Multiple Well potential: U (x1 , x2 ) = 41 x21 + 14 x22 + 4 sin(1.1x1 ) sin(x2 ). The
+target distribution is π(x) ∝ e−U (x) . We generate a reference dataset of N = 20, 000 samples using
+PT with limited convergence, purposefully resulting in training data that contains visible noise and
+artifacts. We train flows using different balancing parameters θ and subsequently generate 320, 000
+new samples to compute the ESS and L2 Bias.
+7.1.2
+
+Results and Analysis
+
+The results in Figure 1 demonstrate the robust distillation capabilities of Jeffreys Flow when trained
+on extremely noisy data. The pure Data KL strictly mimics the empirical distribution provided by
+the non-converged PT chains. Consequently, it produces diffuse samples with significant mass in
+high-energy regions, resulting in consistently low ESS.
+In contrast, the pure Energy KL suffers from catastrophic mode collapse. While it generates
+low-energy samples, it fails to capture the global topology, often collapsing to a single mode or a
+geometrically restrictive manifold.
+Jeffreys Flow effectively acts as a physics-informed denoiser. By balancing the inclusive nature
+of the data term with the precision of the energy term, it recovers the true structure of the target
+from corrupted training samples. For instance, in the Multiple Well experiment, Jeffreys Flow
+with θ = 0.75 improves the sample quality from an input ESS of 20.4% to an output of 92.0%,
+reconstructing the correct lattice structure barely visible in the training set. Similarly, in the
+Himmelblau case, it recovers all four modes with distinct separation, filtering out the background
+noise present in the baseline.
+
+17
+
+Figure 1: Qualitative comparison under extreme noise conditions. Rows correspond to Three Well,
+Himmelblau, Annulus, and Multiple Well potentials. Columns display samples from Data KL,
+Jeffreys Flow, and Energy KL. Data KL reflects the poor quality of the non-converged training
+data. Jeffreys Flow distills the underlying manifold, denoising the distribution to achieve high
+fidelity where Energy KL fails due to mode collapse.
+
+18
+
+7.1.3
+
+Periodic Well
+
+Finally, we apply Jeffreys Flow to a 2D Periodic Well potential:
+7
+
+U (x1 , x2 ) = 4 sin(2x1 )(sin(2x2 )) 5 ,
+
+x ∈ [−π, π]2 ,
+
+where the fractional power is implemented as sgn(·)| · |1.4 to ensure differentiability. We train
+a circular spline flow using 20, 000 reference samples from PT. We generate sample sets of sizes
+N ∈ {48 , . . . , 412 } and measure the ESS and L2 bias against the ground truth.
+
+Figure 2: Convergence on the Periodic Well. Left: Generated samples overlaid on the potential,
+showing full coverage of the 8 modes on the torus [−π, π]2 . Right: Metrics vs. sample size N .
+The L2 Bias follows the theoretical O(N −1/2 ) Monte Carlo decay rate. Crucially, the ESS remains
+stable regardless of N , indicating the flow generates i.i.d. samples with high efficiency, bypassing
+the mixing bottlenecks of MCMC.
+The results in Figure 2 validate the method’s robustness. The flow accurately captures the
+global topology without boundary artifacts. Quantitatively, the L2 bias exhibits a strict O(N −1/2 )
+decay, confirming the estimator is unbiased with finite variance. Most importantly, the ESS does
+not degrade with increasing N , maintaining ≈ 96% efficiency. This implies the learned transport
+map Fθ yields an importance distribution nearly indistinguishable from the target π, effectively
+solving the mode-hopping problem inherent to PT.
+
+7.2
+
+Multi-Step Boltzmann Generator
+
+We apply Jeffreys Flow to train Boltzmann Generator for some high-dimensional distributions.
+These distribution gradually transform a base Gaussian distribution to the multi-modal target
+distribution, while the balancing parameter θ is chosen as fixed values.
+7.2.1
+
+3D Gaussian Mixture Model
+
+The target distribution consists of six anisotropic Gaussian components arranged in an octahedral
+geometry. The potential energy is given by:
+ X
+
+
+6
+1
+1
+⊤ −1
+U (x) = − log
+exp − (x − µk ) Σk (x − µk )
+,
+6
+2
+k=1
+
+19
+
+where the means µk are located at the vertices of an octahedron with distance L = 6 from the
+origin: {(±6, 0, 0), (0, ±6, 0), (0, 0, ±6)}. The covariance matrices Σk are constructed to define
+distinct anisotropic orientations for each mode.
+We employ 50,000 reference samples generated from PT to train the Jeffreys Flow with fixed
+parameter θ = 0.75. Figure 3 illustrates the sequential transport results. Starting from the Gaussian
+base, the distilled flow successfully transports probability mass to the multimodal target through
+M = 3 intermediate steps. The CESS remains consistently high throughout the process, indicating
+that the flow efficiently overcomes geometric barriers and accurately covers all six disjoint modes
+without mode collapse.
+
+Figure 3: Sequential Distillation on 3D GMM. Top: Reference samples from PT at various temperatures. Bottom: Generated samples from the distilled Jeffreys Flow. The generated samples have
+high ESS and accurately match the target distribution with 6 separated potential wells.
+
+7.2.2
+
+4D Rosenbrock Distribution
+
+The Rosenbrock function is a classic pathological problem in optimization, characterized by a
+narrow, curved valley that poses significant challenges for sampling algorithms. The 4D variant
+extends this complexity with strong correlations between adjacent variables. The potential is
+defined as:
+3
+X
+
+U (x) = 6
+100(xi+1 − x2i )2 + (1 − xi )2 .
+i=1
+
+Similar to previous experiments, we train the Jeffreys Flow using 50,000 reference samples
+obtained from PT. Figure 4 presents the results of the sequential distillation over M = 11 steps.
+Despite the highly twisted geometry, the flow effectively transports probability mass along the
+“banana-shaped” valley. The generated ensemble maintains high CESS throughout the ladder and
+achieves precise coverage of the target distribution, capturing the intricate variable dependencies
+that standard methods often fail to resolve.
+
+20
+
+Figure 4: Sequential Distillation on 4D Rosenbrock. Top: Reference samples from selected PT
+temperatures showing the progression from the base to the twisted target. Bottom: Generated
+samples from the Jeffreys Flow. The model successfully learns the highly non-linear correlations,
+producing high-fidelity samples with robust ESS.
+
+21
+
+7.2.3
+
+8D Nonlinear Rastrigin
+
+To evaluate the method in higher dimensions, we construct a highly non-convex potential by composing a Rastrigin function with a nonlinear diffeomorphism. The potential is defined as:
+U (x) =
+
+8 h
+X
+
+i
+0.5zi2 + 12 cos(2zi ) ,
+
+where z = x + δ tanh(xQ).
+
+i=1
+
+Here, Q is a fixed random orthogonal matrix and δ = 0.75 controls the strength of the nonlinearity.
+This transformation introduces complex dependencies between all dimensions, making the mode
+separation geometry extremely difficult to traverse.
+For this high-dimensional task, we increase the sample size to N = 400, 000 and compare the
+generated samples against PT reference. For the first steps 1-17, we select θ = 0.5, and for the
+subsequent steps 18-22, we choose θ = 0.2.
+Table 1 summarizes the performance metrics steps M = 22. The algorithm maintains high
+CESS, consistently exceeding 70% and often surpassing 90%. ESS exhibits a sawtooth pattern,
+decaying during transport and restoring to 100% upon adaptive resampling, confirming effective
+ensemble rejuvenation.
+Table 1: Step-by-step performance metrics for the 8D Nonlinear Rastrigin task. The table displays
+the target inverse temperature β, the CESS, and the ESS at each stage. The ESS is reset to 100%
+(marked as boxed) whenever adaptive resampling is performed.
+Step
+β
+CESS
+ESS
+Step
+β
+CESS
+ESS
+
+1
+0.020
+94.4%
+94.4%
+12
+0.500
+94.5%
+77.1%
+
+2
+0.032
+96.1%
+90.7%
+13
+0.550
+95.3%
+68.9%
+
+3
+0.050
+91.0%
+82.6%
+14
+0.600
+94.5%
+58.9%
+
+4
+0.100
+78.2%
+64.4%
+15
+0.650
+95.1%
+100.0%
+
+5
+0.150
+71.5%
+100.0%
+16
+0.700
+95.4%
+95.4%
+
+6
+0.200
+74.6%
+74.6%
+17
+0.750
+95.5%
+88.1%
+
+7
+0.250
+82.6%
+61.0%
+18
+0.800
+91.8%
+74.7%
+
+8
+0.300
+86.7%
+51.9%
+19
+0.850
+94.5%
+61.1%
+
+9
+0.350
+89.8%
+100.0%
+20
+0.900
+92.0%
+100.0%
+
+10
+0.400
+92.3%
+92.3%
+21
+0.950
+93.1%
+93.1%
+
+11
+0.450
+93.4%
+84.7%
+22
+1.000
+85.6%
+74.1%
+
+Figure 5 displays the potential energy distribution P (U ) and the 1D marginal density p(x1 ).
+While PT serves as a robust benchmark, exact convergence in 8D is challenging, and finite-time
+variance may persist. Conversely, normalizing flows may introduce smoothing effects due to their
+continuous invertibility. Despite these potential numerical discrepancies, the results show strong
+structural agreement: Jeffreys Flow successfully captures all modes identified by PT and covers
+the correct energy range without mode collapse. This mutual validation confirms the reliability of
+Jeffreys Flow in learning complex, multimodal high-dimensional landscapes.
+7.2.4
+
+16D Solvated Periodic Grid
+
+Consider a 16-dimensional system modeling a particle in a periodic potential coupled to a harmonic
+solvent bath. The potential energy U (x) is defined on the manifold T2 × R14 :
+U (x) = A [cos(4x1 ) + cos(4x2 )] +
+
+16
+X
+κ
+k=3
+
+2
+
+(xk − αk sin(x1 ) sin(x2 ))2 ,
+
+where x1 , x2 ∈ [−π, π) represent the periodic coordinates of the particle, and x3 , . . . , x16 ∈ R
+represent the solvent degrees of freedom. The coupling coefficients αk are linearly spaced between
+[2, 4]. We set the barrier height A = 2 and solvent stiffness κ = 30.
+22
+
+Benchmark Comparison for 8D Nonlinear Rastrigin
+Energy Distribution Comparison
+
+0.25
+
+1D Marginal Structure
+
+0.4
+
+Parallel Tempering
+Jeffreys Flow
+
+Parallel Tempering
+Jeffreys Flow
+
+0.35
+0.2
+
+Marginal Density p(x1)
+
+Density ;(U)
+
+0.3
+
+0.15
+
+0.1
+
+0.25
+0.2
+0.15
+0.1
+
+0.05
+0.05
+0
+
+-86
+
+-84
+
+-82
+
+-80
+
+-78
+
+-76
+
+-74
+
+-72
+
+-70
+
+0
+-4
+
+-3
+
+Potential Energy U(x)
+
+-2
+
+-1
+
+0
+
+1
+
+2
+
+3
+
+4
+
+Coordinate x1
+
+Figure 5: Benchmark Comparison for 8D Nonlinear Rastrigin. Left: Comparison of the potential
+energy distribution P (U ) between PT and Jeffreys Flow. Right: Comparison of the 1D marginal
+distribution p(x1 ). Both methods show consistent mode coverage and energy profiles, validating
+that the Flow has captured the global structure of the target distribution.
+Physically, this system represents a particle moving on a corrugated substrate while being
+immersed in a solvent. The coupling term implies that the equilibrium positions of the solvent
+molecules fluctuate depending on the particle’s location, inducing a configuration-dependent drag.
+Crucially, by integrating out the Gaussian bath variables, the marginal distribution of the periodic
+variables reduces to p(x1 , x2 ) ∝ e−A(cos(4x1 )+cos(4x2 )) , which factorizes as p(x1 )p(x2 ). This implies
+that x1 and x2 are theoretically independent. For training, we employ the Renyi divergence with
+order α = 1.5 and set the balancing parameter θ = 0.75. In this system, x1 and x2 are periodic
+while x3 , . . . , x16 are defined in the full space; therefore, we mix Circular Spline Flow and Rational
+Quadratic Spline Flow to perform non-linear mixing.
+Figure 6 presents the joint distributions of the variables x1 and x2 . Ideally, the marginal distribution should factorize as p(x1 , x2 ) = p(x1 )p(x2 ), resulting in a checkerboard pattern. However, the
+PT reference exhibits strong diagonal correlations, indicating that the sampler failed to overcome
+the kinetic barriers induced by the solvent coupling. In contrast, Jeffreys Flow successfully recovers the correct checkerboard structure, demonstrating that it has learned to uncouple the periodic
+variables from the bath, thereby correcting the biases present in the training data.
+To further quantify the accuracy, we compute the Potential of Mean Force (PMF) along the
+first coordinate x1 . The PMF is defined as the free energy profile along a reaction coordinate:
+F (x1 ) = − ln p(x1 ) + C,
+
+(21)
+
+where p(x1 ) is the marginal density and C is a constant. Theoretical derivation predicts F (x1 ) ∝
+A cos(4x1 ). Figure 7 compares the estimated PMF profiles. PT significantly deviates from the
+ground truth, underestimating the barrier heights due to broken ergodicity. Conversely, Jeffreys
+Flow shows excellent agreement with the theoretical curve, accurately capturing both the barrier
+height and the well shape.
+
+23
+
+Figure 6: Decorrelation in 16D Solvated Periodic Grid. Top: PT samples showing spurious diagonal
+correlations in x1 -x2 and x1 -x16 due to incomplete mixing. Bottom: Jeffreys Flow samples showing
+the correct independent checkerboard structure and solvated structure.
+PMF for 16D Solvated Periodic Grid
+Theoretical
+Parallel Tempering
+Jeffreys Flow
+
+2.5
+
+Free Energy F(x1) (Shifted)
+
+2
+1.5
+1
+0.5
+0
+-0.5
+-1
+-1.5
+-2
+-3
+
+-2
+
+-1
+
+0
+
+1
+
+2
+
+3
+
+Coordinate x1
+
+Figure 7: PMF derived from PT and Jeffreys Flow against the theoretical potential. Jeffreys Flow
+reconstructs the free energy barriers that PT fails to cross.
+
+24
+
+7.3
+
+Application in Replica Exchange SGLD
+
+We test the application of Jeffreys Flow on reSGLD and observe the enhancement of the sampling
+accuracy. Consider a simple 2D potential:
+7.3.1
+
+2D Gaussian Mixture Model
+
+The target distribution consists of four anisotropic Gaussian components. The potential energy
+function is given by:
+
+!
+4
+X
+1
+U (x) = − log
+wk exp − (x − µk )⊤ Σ−1
+,
+k (x − µk )
+2
+k=1
+
+where x = (x1 , x2 )⊤ and the mixture weights are w = [0.25, 0.30, 0.15, 0.30]. The component
+means µk are distributed across the four quadrants to ensure mode separation, while the covariance
+matrices Σk provide distinct anisotropic orientations for each well. To emulate the stochastic nature
+of SGLD, we introduce an auxiliary unbiased random potential:
+Ũ (x) = ĩ1 cos(x1 ) + ĩ2 cos(x2 ),
+
+where ĩ1 , ĩ2 ∼ U{−4, 4}.
+
+We investigate Jeffreys Flow using N = 40, 000 training and 160, 000 validation samples generated via reSGLD. The simulation employs a large step size h = 10−2 and M = 6 temperatures
+(β ∈ {0, 0.05, 0.2, 0.4, 0.7, 1.0}) with θ = 0.5. To isolate error sources, we evaluate two flow variants: No MALA disables rejuvenation to strictly test the transport map on raw data, while MALA
+incorporates SVRG-ULA to correct the ensemble topology. These are tested against Naive and Correct reSGLD baselines, which respectively omit and apply variance correction during temperature
+exchange.
+Quantitative performance, detailed in Tables 2 and 3 and visualized in Figure 8, highlights
+three key advantages. First, Jeffreys Flow drastically reduces the massive L2 bias inherent in raw
+reSGLD chains (caused by the aggressive step size) by roughly an order of magnitude (∼ 10−2 ).
+The Energy KL objective effectively filters stochastic noise by anchoring the flow to the exact
+energy landscape.
+Second, while No MALA and MALA achieve similar macroscopic metrics (ESS ∼ 80%, Bias
+∼ 10−2 ), MALA is geometrically superior. Without rejuvenation, the flow produces scattered ensembles with artificial tails connecting distinct modes. Conversely, intermediate MALA simulations
+contract generated samples toward localized minima, enforcing strict topological boundaries. Finally, unlike MCMC methods which discard correlated samples, the trained Jeffreys Flow operates
+as a feed-forward Boltzmann Generator, enabling highly accelerated, independent parallel sampling
+with robust ESS guarantees (> 85%).
+7.3.2
+
+2D Screened Poisson Inverse Problem
+
+To evaluate the algorithm’s performance on highly non-linear, computationally expensive scientific
+tasks, we consider a parameter inference problem governed by the 2D Screened Poisson equation:
+−∆u(x) + αu(x) = f (x; Θ),
+
+x ∈ Ω = [0, 1]2 ,
+
+(22)
+
+subject to homogeneous Dirichlet boundary conditions u(x) = 0 on ∂Ω. Here, u(x) denotes the
+physical state variable (e.g., fluid pressure or steady-state temperature), α is a constant screening
+
+25
+
+Figure 8: Decorrelation in 2D GMM. Visual comparison between reSGLD baselines and Jeffreys
+Flow configurations. JF (MALA) fully resolves the probability density distribution. JF (No MALA)
+generates samples featuring excessive spread and undesirable artificial tails.
+
+26
+
+Table 2: Bias Evaluation (L2 error) across the intermediate targets in the 2D GMM experiment.
+The bias is drastically reduced by training with Jeffreys divergence, filtering out aggressive discretization errors inherent in reSGLD.
+
+Step
+β
+reSGLD
+JF (No MALA)
+JF (MALA)
+
+Naive
+Correct
+Naive
+Correct
+Naive
+Correct
+
+0
+0.0
+5.97e-02
+9.82e-02
+2.81e-03
+4.44e-03
+4.94e-03
+3.75e-03
+
+1
+0.05
+5.90e-02
+3.50e-02
+2.57e-02
+9.29e-03
+1.65e-03
+3.08e-03
+
+2
+0.2
+6.11e-02
+4.44e-02
+1.91e-02
+8.93e-03
+1.56e-02
+6.87e-03
+
+3
+0.4
+7.49e-02
+6.42e-02
+1.96e-02
+1.45e-02
+6.44e-03
+1.05e-02
+
+4
+0.7
+1.12e-01
+9.48e-02
+1.32e-02
+1.89e-02
+4.60e-03
+8.22e-03
+
+5
+1.0
+1.50e-01
+1.11e-01
+1.48e-02
+1.43e-02
+8.45e-03
+1.49e-02
+
+Table 3: Efficiency Evaluation (ESS) across the intermediate targets in the 2D GMM experiment.
+High quantitative ESS values demonstrate the ability of Jeffreys Flow as a robust feed-forward
+Boltzmann Generator for direct, independent sample generation.
+
+Step
+β
+JF (No MALA)
+JF (MALA)
+
+Naive
+Correct
+Naive
+Correct
+
+0
+0.0
+-
+
+1
+0.05
+99.17%
+99.16%
+99.25%
+98.07%
+
+2
+0.2
+97.52%
+96.13%
+96.77%
+96.80%
+
+3
+0.4
+94.42%
+93.75%
+95.34%
+95.11%
+
+4
+0.7
+87.17%
+87.51%
+91.77%
+91.81%
+
+5
+1.0
+76.80%
+77.61%
+86.02%
+86.64%
+
+parameter, and f (x; Θ) represents the underlying multi-source driving field parameterized by a
+latent vector Θ.
+In this experiment, the true source field is composed of S = 4 distinct Gaussian peaks:
+f (x; Θ) = c
+
+S
+X
+s=1
+
+∥x − θs ∥2
+exp −
+2γ 2
+
+
+
+,
+
+where θs ∈ R2 marks the spatial coordinate of the s-th source. The full parameter vector to be
+inferred is the concatenation of these locations: Θ = [θ1⊤ , . . . , θS⊤ ]⊤ ∈ R8 . We set the screening
+parameter to α = 0.5, the source amplitude to c = 1.0, and the fixed characteristic width to
+γ = 0.1. The physical domain Ω is discretized using a uniform 40 × 40 structured grid, translating
+each forward pass into solving a sparse 1600 × 1600 linear system.
+The inverse task requires recovering the unknown coordinates Θ given a sparse, noisy set of
+pointwise observations. As depicted in Figure 9, these measurements are collected by an evenly
+distributed 9 × 9 sensor network array O covering the defined domain Ω. The observations are
+assumed to be corrupted by identically distributed Gaussian noise centered on the analytical forward
+PDE solution:
+2
+dj = u(xj ; Θtrue ) + ηj , ηj ∼ N (0, σobs
+), for xj ∈ O.
+(23)
+The goal is to quantify the posterior uncertainty over the optimal multi-source configuration by
+drawing samples from the highly non-convex probability distribution π(Θ) ∝ exp(−U (Θ)), where
+
+27
+
+the potential energy is given by the data mismatch loss:
+U (Θ) =
+
+|O|
+1 X
+|u(xj ; Θ) − dj |2 .
+2
+2σobs
+j=1
+
+(24)
+
+2D Screened Poisson System Setup
+Source Field
+
+1
+
+Numerical Solution
+
+1
+
+0.241
+
+0.9
+
+0.24
+
+0.8
+
+0.8
+
+0.8
+
+0.239
+
+0.7
+
+0.238
+
+0.6
+
+0.6
+
+0.6
+
+0.237
+
+0.5
+
+0.236
+
+0.4
+
+0.4
+
+0.235
+
+0.4
+
+0.234
+
+0.3
+0.2
+
+0.2
+
+0.233
+
+0.2
+
+0.232
+
+0.1
+
+0
+
+0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+0
+
+1
+
+0.231
+
+0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1
+
+Figure 9: 2D Screened Poisson Equipment Setup. Left: The true multi-source distribution field
+f (x) generated by the 4 ground truth locations Θtrue . Right: The resulting physical response
+u(x) modeled by solving the discretized Poisson PDE. The 81 fixed local sensors (square markers)
+collect the noisy measurements used to infer the parameters representing the source locations (star
+markers).
+To learn the 8D posterior distribution, we train the Jeffreys Flow using a balancing parameter
+of θ = 0.8. The reference data is generated via reSGLD across M = 8 temperature steps. We
+evaluate three distinct configurations for the inference: Exact (using the exact PDE simulations
+to compute the weight function), Full Potential (using the full PDE evaluation during the SGLD
+simulation), and Stochastic (relying solely on stochastic mini-batch evaluations for both simulation
+and weight neural network training).
+The sampling efficiency is summarized in Table 4. While all three methods achieve reasonably
+high CESS scores throughout the temperature ladder, the Exact configuration yields the most
+credible results and guarantees the highest fidelity in capturing the true posterior distribution.
+Table 4: Efficiency Evaluation (CESS) across the intermediate targets in the 2D Screened Poisson
+experiment (M = 8). Sustained high CESS scores confirm the robustness of the trained Jeffreys
+Flow.
+Method \ Step (k)
+Exact
+Full Potential
+Stochastic
+
+1
+83.93%
+83.42%
+61.71%
+
+2
+91.49%
+88.28%
+64.27%
+
+3
+92.48%
+93.09%
+84.69%
+
+4
+88.69%
+88.83%
+90.00%
+
+5
+77.30%
+79.90%
+89.08%
+
+6
+85.23%
+86.18%
+93.23%
+
+7
+89.56%
+89.25%
+79.66%
+
+8
+89.24%
+91.15%
+94.14%
+
+Figure 10 juxtaposes the generated 2D marginal scatter plots corresponding to the location of
+the first source θ1 . Compared to the baseline reSGLD (naive) results, the optimal Exact distribution
+28
+
+exhibits a subtle but significant structural refinement, causing the separated posterior probability
+peaks to contract slightly and thereby providing a tighter, more confident parameter estimation.
+Conversely, the samples produced by the Stochastic configuration deteriorate noticeably, indicating
+that the surrogate neural network failed to accurately capture the precision required for the exact
+weight function under extreme stochastic noise.
+
+Figure 10: Marginal Posterior for Source 1 (θ1 ) in the Poisson Inverse Problem. The Exact
+configuration produces tightly bounded, high-fidelity posterior samples. The Neural Networkapproximated Stochastic result exhibits structural degradation, validating the necessity of using
+exact evaluations for calculating the importance weights.
+Overall, the trained Jeffreys Flow drastically accelerates the sampling speed from the complex posterior distribution. By distilling the geometry into an invertible feed-forward map, the
+generator completely bypasses the computationally exhorbitant, highly correlated grid-based PDE
+solving steps required by traditional MCMC chains. In this PDE-constrained environment, this
+profound enhancement in computational efficiency stands as the greatest advantage of adopting
+the continuous Boltzmann Generator framework.
+29
+
+7.4
+
+Application in Path Integral Monte Carlo
+
+To validate the efficacy of Jeffreys Flow in mapping infinite-dimensional function spaces, we apply
+the framework to a PIMC ring-polymer problem in 1D. Consider a quantum particle interacting
+with an asymmetric double-well potential defined by:
+V (x) = 20(x − 1)2 (x + 0.9)(x + 1.1).
+
+(25)
+
+The classical thermal equilibrium for this particle is governed by the standard Boltzmann distribution exp(−V (x)). However, in the full path integral formulation, the quantum mechanical target
+distribution expands into a function space of periodic imaginary-time paths, defined by the probability measure π(x(·)) ∝ exp(−U (x(·))). Here, the Euclidean action functional U (x(·)) intricately
+couples the geometric topology of the continuous paths with the physical potential V (x).
+A crucial advantage of our framework is the simplicity required for training. We select the
+reference samples {µk }M
+k=1 used to guide the flow by strictly generating data from the classical
+simulation (or the single-bead spatial approximation) of the underlying potential. In doing so, the
+Jeffreys Flow learns the structural mapping from computationally cheap, purely classical samples,
+before systematically distilling this mapping to lift the probability mass exactly into the highdimensional quantum function space target measure. For this experiment, the flow balancing
+parameter is fixed at θ = 0.75.
+
+Distribution of Centroid Mode ( 0)
+Classical
+Quantum
+
+3.0
+
+98
+96
+
+2.0
+CESS (%)
+
+Density
+
+2.5
+
+1.5
+
+94
+92
+
+1.0
+
+90
+
+0.5
+
+88
+
+0.0
+
+CESS per Flow Step
+
+100
+
+Flow (Classical)
+Flow (Quantum)
+100% CESS
+
+86
+
+1.5
+
+1.0
+
+0.5
+
+0.0
+
+0.5
+
+1.0
+
+1.5
+
+0
+
+1
+
+2
+
+3
+
+4
+
+5
+6
+7
+Ladder Step (k)
+
+8
+
+9
+
+10
+
+Figure 11: Quantum Path Integral Distillation. Left: Comparison of the marginal spatial density between the classical distribution constructed from the empirical samples µ and the distilled
+quantum distribution extracted using Jeffreys Flow. The generated quantum distribution accurately captures significant quantum tunneling and delocalization effects that are entirely absent in
+the localized classical training data. Right: Progression of the Conditional Effective Sample Size
+(CESS) over the intermediate bridging steps. Sustained high CESS scores confirm the robustness
+and stability of the transport map during the distillation sequence.
+The physical manifestations of this cross-dimensional transport are illustrated in Figure 11.
+The classical probability mass assumes the form of two isolated peaks that are tightly constrained
+within the minima of the potential. In contrast, the generated quantum distribution successfully
+captures deep tunneling effects, exhibiting broad spatial delocalization extending smoothly across
+the classical energy barriers. Additionally, the consistently high CESS values across the temperature
+ladder confirm an uncompromised efficiency in navigating the complex mode transport.
+30
+
+To rigorously quantify the generalization capability and numerical precision of the learned flow
+into substantially higher dimensions, we assess the generated ensemble across discrete path integral
+representations utilizing varying resolution scales, denoted by the number of discrete beads N .
+Crucially, the transport map F is trained strictly on a heavily truncated low-frequency Fourier
+subset comprising only N0 = 8 modes. To sample at progressively higher resolutions without retraining, we simply pad the missing high-frequency Fourier coefficients with an invariant identity
+mapping and seamlessly correct any residual truncation errors through importance reweighting,
+precisely utilizing the exact full-dimensional un-truncated potential function UN (ξ).
+Table 5: Sampling Bias Evaluation in High Dimensions. The L2 Bias calculated against exact
+finite-difference eigen decomposition ground truth for five physical observables. Using just a single
+transport map trained exclusively at the truncated dimension N0 = 8, the reweighted Jeffreys Flow
+generates high-fidelity sampling accuracy uniformly up to N = 32, with the bias adhering to the
+rapid theoretical discretization error decay.
+Discretization N
+L2 Bias
+
+8
+1.60e-02
+
+12
+7.45e-03
+
+16
+5.93e-03
+
+20
+3.56e-03
+
+24
+4.02e-03
+
+28
+2.00e-03
+
+32
+3.84e-04
+
+We test the exact quantum thermal averages for a set of five distinct physical observables via
+exhaustive eigenspace decomposition via finite difference methods. These theoretical ground truth
+values are directly contrasted with the numerical expectations calculated via our reweighted ensemble. The L2 Biases resulting from extending our baseline N0 = 8 trained flow up to exponentially
+expanded N = 32 dimensional spaces are meticulously documented in Table 5.
+Remarkably, despite the flow remaining statically architected to solely transport N0 = 8 dimensions, the identically padded estimation yields highly accurate thermodynamic limits across
+vastly expanded configuration spaces. The L2 Bias systematically plummets as N increases. Crucially, this error decay scales substantially faster than linear convergence, aligning robustly with the
+strict theoretical O(1/N 2 ) decay rate characterizing the symmetric Lie–Trotter sequence deployed
+in discretizing the Euclidean action. This result confirms that our physics-informed mode truncation mechanism effortlessly guarantees scalable, highly efficient sample generation into theoretically
+infinite dimensional limits, completely without incurring exponential parameter overhead.
+
+8
+
+Conclusion
+
+This paper introduced Jeffreys Flow, a unified normalizing-flow training framework that bridges the
+Energy KL (reverse KL) and Data KL (forward KL) divergences via the Jeffreys divergence. The
+main contributions are: (i) theoretical foundation (derived the Jeffreys divergence loss as a convex
+combination of Energy KL and Data KL, proved its strict convexity, and established that the resulting transport map strictly outperforms the empirical target distribution (Theorem 1), with stability
+guarantees for importance weights (Lemma 1, Theorem 2)); (ii) sequential distillation strategy (developed a practical sequential distillation procedure that extracts high-fidelity flows from Parallel
+Tempering trajectories, maintaining high Conditional Effective Sample Size across temperature ladders); (iii) extension to stochastic-gradient settings (integrated Jeffreys Flow with Replica Exchange
+Stochastic Gradient Langevin Dynamics, overcoming inherent bias of stochastic swap acceptances
+via auxiliary neural networks and variance-reduced rejuvenation); (iv) application to quantum thermal sampling (adapted Jeffreys Flow to Path Integral Monte Carlo via a dimensionality-truncated
+Fourier-mode representation, enabling scalable sampling of ring-polymer configurations while preserving quantum effects); and (v) comprehensive numerical validation (demonstrated effectiveness
+31
+
+across diverse benchmark problems, showing superior sampling efficiency, robustness, and accelerated convergence).
+Jeffreys Flow offers several key advantages over existing flow-based samplers: bidirectional fidelity (by symmetrizing the KL divergence, it simultaneously enforces global mode coverage via
+Data KL and local sampling precision via Energy KL, effectively eliminating mode collapse); distillation philosophy (rather than attempting to outperform Parallel Tempering in raw exploration,
+Jeffreys Flow distills the knowledge already captured by PT into a compact, fast-to-evaluate generator); flexibility (the framework seamlessly integrates with established sampling algorithms (PT,
+reSGLD, PIMC) and can be applied to bounded periodic domains, high-dimensional finite-sum
+potentials, and infinite-dimensional path integrals); and scalability (through mode truncation and
+importance reweighting, Jeffreys Flow scales to high-dimensional and quantum problems without
+prohibitive computational overhead).
+While the present work establishes a solid theoretical and empirical foundation, several promising avenues remain for future research: adaptive weighting (develop online strategies for tuning the
+balancing parameter θ based on real-time metrics such as CESS or gradient variances); theoretical
+extensions (analyze the convergence rate of the sequential distillation process and derive explicit
+error bounds for the truncated Fourier-mode approximation in PIMC); broader applications (apply
+Jeffreys Flow to challenging real-world problems such as molecular dynamics with explicit solvents,
+high-dimensional Bayesian inverse problems, and lattice field theories); integration with diffusion
+models (explore connections between Jeffreys Flow and score-based generative models, potentially
+unifying the benefits of both paradigms); and hardware-aware implementation (optimize the framework for GPU-based distributed training and inference, enabling real-time sampling for extremely
+large-scale simulations).
+Jeffreys Flow provides a versatile, physics-informed framework for accelerating rare-event sampling in computational physics, statistics, and machine learning. By unifying energy-based and
+data-driven training objectives, it delivers robust, high-fidelity generators that overcome the fundamental limitations of single-divergence methods. The experimental results confirm that Jeffreys
+Flow not only matches but often surpasses the sampling quality of gold-standard MCMC techniques while offering orders-of-magnitude speed-ups through parallel, feed-forward generation. We
+believe this work opens a new pathway toward efficient, reliable generative modeling for complex
+multimodal distributions.
+
+References
+[1]
+
+Frank Noé et al. “Boltzmann generators: Sampling equilibrium states of many-body systems
+with deep learning”. In: Science 365.6457 (2019), eaaw1147.
+
+[2]
+
+Hao Wu, Jonas Köhler, and Frank Noé. “Stochastic normalizing flows”. In: Advances in neural
+information processing systems 33 (2020), pp. 5933–5944.
+
+[3]
+
+Saifuddin Syed et al. “Non-reversible parallel tempering: a scalable highly parallel MCMC
+scheme”. In: Journal of the Royal Statistical Society Series B: Statistical Methodology 84.2
+(2022), pp. 321–350.
+
+[4]
+
+Michele Invernizzi et al. “Skipping the replica exchange ladder with normalizing flows”. In:
+The Journal of Physical Chemistry Letters 13.50 (2022), pp. 11643–11649.
+
+[5]
+
+Yixuan Qiu and Xiao Wang. “Efficient multimodal sampling via tempered distribution flow”.
+In: Journal of the American Statistical Association 119.546 (2024), pp. 1446–1460.
+
+32
+
+[6]
+
+Sebastian Falkner et al. “Conditioning Boltzmann generators for rare event sampling”. In:
+Machine Learning: Science and Technology 4.3 (2023), p. 035050.
+
+[7]
+
+Marylou Gabrié, Grant M Rotskoff, and Eric Vanden-Eijnden. “Adaptive Monte Carlo augmented with normalizing flows”. In: Proceedings of the National Academy of Sciences 119.10
+(2022), e2109420119.
+
+[8]
+
+Yihang Wang, Chris Chi, and Aaron R Dinner. “Mitigating mode collapse in normalizing
+flows by annealing with an adaptive schedule: Application to parameter estimation”. In: arXiv
+preprint arXiv:2505.03652 (2025).
+
+[9]
+
+Wei Deng et al. “Non-convex Learning via Replica Exchange Stochastic Gradient MCMC”.
+In: International Conference on Machine Learning. PMLR. 2020, pp. 2474–2483.
+
+33
+
+

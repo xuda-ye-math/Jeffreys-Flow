@@ -1,0 +1,256 @@
+%apsrev4-2.bst 2019-01-14 (MD) hand-edited version of apsrev4-1.bst
+%Control: key (0)
+%Control: author (8) initials jnrlst
+%Control: editor formatted (1) identically to author
+%Control: production of article title (0) allowed
+%Control: page (0) single
+%Control: year (1) truncated
+%Control: production of eprint (0) enabled
+\begin{thebibliography}{68}%
+\makeatletter
+\providecommand \@ifxundefined [1]{%
+ \@ifx{#1\undefined}
+}%
+\providecommand \@ifnum [1]{%
+ \ifnum #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \@ifx [1]{%
+ \ifx #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+ \fi
+}%
+\providecommand \natexlab [1]{#1}%
+\providecommand \enquote  [1]{``#1''}%
+\providecommand \bibnamefont  [1]{#1}%
+\providecommand \bibfnamefont [1]{#1}%
+\providecommand \citenamefont [1]{#1}%
+\providecommand \href@noop [0]{\@secondoftwo}%
+\providecommand \href [0]{\begingroup \@sanitize@url \@href}%
+\providecommand \@href[1]{\@@startlink{#1}\@@href}%
+\providecommand \@@href[1]{\endgroup#1\@@endlink}%
+\providecommand \@sanitize@url [0]{\catcode `\\12\catcode `\$12\catcode `\&12\catcode `\#12\catcode `\^12\catcode `\_12\catcode `\%12\relax}%
+\providecommand \@@startlink[1]{}%
+\providecommand \@@endlink[0]{}%
+\providecommand \url  [0]{\begingroup\@sanitize@url \@url }%
+\providecommand \@url [1]{\endgroup\@href {#1}{\urlprefix }}%
+\providecommand \urlprefix  [0]{URL }%
+\providecommand \Eprint [0]{\href }%
+\providecommand \doibase [0]{https://doi.org/}%
+\providecommand \selectlanguage [0]{\@gobble}%
+\providecommand \bibinfo  [0]{\@secondoftwo}%
+\providecommand \bibfield  [0]{\@secondoftwo}%
+\providecommand \translation [1]{[#1]}%
+\providecommand \BibitemOpen [0]{}%
+\providecommand \bibitemStop [0]{}%
+\providecommand \bibitemNoStop [0]{.\EOS\space}%
+\providecommand \EOS [0]{\spacefactor3000\relax}%
+\providecommand \BibitemShut  [1]{\csname bibitem#1\endcsname}%
+\let\auto@bib@innerbib\@empty
+%</preamble>
+\bibitem [{\citenamefont {Bucklew}\ and\ \citenamefont {Bucklew}(2004)}]{bucklew2004introduction}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.~A.}\ \bibnamefont {Bucklew}}\ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Bucklew}},\ }\href@noop {} {\emph {\bibinfo {title} {Introduction to rare event simulation}}},\ Vol.~\bibinfo {volume} {5}\ (\bibinfo  {publisher} {Springer},\ \bibinfo {year} {2004})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Rubino}\ \emph {et~al.}(2009)\citenamefont {Rubino}, \citenamefont {Tuffin} \emph {et~al.}}]{rubino2009rare}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Rubino}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Tuffin}}, \emph {et~al.},\ }\href@noop {} {\emph {\bibinfo {title} {Rare event simulation using Monte Carlo methods}}},\ Vol.~\bibinfo {volume} {73}\ (\bibinfo  {publisher} {Wiley Online Library},\ \bibinfo {year} {2009})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Rubino}\ and\ \citenamefont {Tuffin}(2009)}]{rubino2009introduction}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Rubino}}\ and\ \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Tuffin}},\ }\bibfield  {title} {\bibinfo {title} {Introduction to rare event simulation},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Rare event simulation using Monte Carlo methods}\ ,\ \bibinfo {pages} {1}} (\bibinfo {year} {2009})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Eyring}(1935)}]{eyring1935activated}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Eyring}},\ }\bibfield  {title} {\bibinfo {title} {The activated complex in chemical reactions},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {The Journal of Chemical Physics}\ }\textbf {\bibinfo {volume} {3}},\ \bibinfo {pages} {107} (\bibinfo {year} {1935})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Kramers}(1940)}]{kramers1940brownian}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.~A.}\ \bibnamefont {Kramers}},\ }\bibfield  {title} {\bibinfo {title} {Brownian motion in a field of force and the diffusion model of chemical reactions},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Physica}\ }\textbf {\bibinfo {volume} {7}},\ \bibinfo {pages} {284} (\bibinfo {year} {1940})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bouchet}\ and\ \citenamefont {Reygner}(2016)}]{bouchet2016generalisation}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Bouchet}}\ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Reygner}},\ }\bibfield  {title} {\bibinfo {title} {Generalisation of the eyring--kramers transition rate formula to irreversible diffusion processes},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Annales Henri Poincar{\'e}}}},\ Vol.~\bibinfo {volume} {17}\ (\bibinfo {organization} {Springer},\ \bibinfo {year} {2016})\ pp.\ \bibinfo {pages} {3499--3532}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Lee}\ and\ \citenamefont {Seo}(2022)}]{lee2022non}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Lee}}\ and\ \bibinfo {author} {\bibfnamefont {I.}~\bibnamefont {Seo}},\ }\bibfield  {title} {\bibinfo {title} {Non-reversible metastable diffusions with gibbs invariant measure i: Eyring--kramers formula},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Probability Theory and Related Fields}\ }\textbf {\bibinfo {volume} {182}},\ \bibinfo {pages} {849} (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Torrie}\ and\ \citenamefont {Valleau}(1977)}]{torrie1977nonphysical}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.~M.}\ \bibnamefont {Torrie}}\ and\ \bibinfo {author} {\bibfnamefont {J.~P.}\ \bibnamefont {Valleau}},\ }\bibfield  {title} {\bibinfo {title} {Nonphysical sampling distributions in monte carlo free-energy estimation: Umbrella sampling},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Journal of computational physics}\ }\textbf {\bibinfo {volume} {23}},\ \bibinfo {pages} {187} (\bibinfo {year} {1977})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Virnau}\ and\ \citenamefont {M{\"u}ller}(2004)}]{virnau2004calculation}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Virnau}}\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {M{\"u}ller}},\ }\bibfield  {title} {\bibinfo {title} {Calculation of free energy through successive umbrella sampling},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {The Journal of chemical physics}\ }\textbf {\bibinfo {volume} {120}},\ \bibinfo {pages} {10925} (\bibinfo {year} {2004})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {K{\"a}stner}(2011)}]{kastner2011umbrella}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {K{\"a}stner}},\ }\bibfield  {title} {\bibinfo {title} {Umbrella sampling},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Wiley Interdisciplinary Reviews: Computational Molecular Science}\ }\textbf {\bibinfo {volume} {1}},\ \bibinfo {pages} {932} (\bibinfo {year} {2011})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Van~Laarhoven}\ and\ \citenamefont {Aarts}(1987)}]{van1987simulated}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.~J.}\ \bibnamefont {Van~Laarhoven}}\ and\ \bibinfo {author} {\bibfnamefont {E.~H.}\ \bibnamefont {Aarts}},\ }\bibfield  {title} {\bibinfo {title} {Simulated annealing},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Simulated annealing: Theory and applications}}}\ (\bibinfo  {publisher} {Springer},\ \bibinfo {year} {1987})\ pp.\ \bibinfo {pages} {7--15}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bertsimas}\ and\ \citenamefont {Tsitsiklis}(1993)}]{bertsimas1993simulated}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Bertsimas}}\ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Tsitsiklis}},\ }\bibfield  {title} {\bibinfo {title} {Simulated annealing},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Statistical science}\ }\textbf {\bibinfo {volume} {8}},\ \bibinfo {pages} {10} (\bibinfo {year} {1993})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Nikolaev}\ and\ \citenamefont {Jacobson}(2010)}]{nikolaev2010simulated}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~G.}\ \bibnamefont {Nikolaev}}\ and\ \bibinfo {author} {\bibfnamefont {S.~H.}\ \bibnamefont {Jacobson}},\ }\bibfield  {title} {\bibinfo {title} {Simulated annealing},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Handbook of metaheuristics}}}\ (\bibinfo  {publisher} {Springer},\ \bibinfo {year} {2010})\ pp.\ \bibinfo {pages} {1--39}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Doucet}\ \emph {et~al.}(2001)\citenamefont {Doucet}, \citenamefont {De~Freitas},\ and\ \citenamefont {Gordon}}]{doucet2001introduction}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Doucet}}, \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {De~Freitas}},\ and\ \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Gordon}},\ }\bibfield  {title} {\bibinfo {title} {An introduction to sequential monte carlo methods},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Sequential Monte Carlo methods in practice}}}\ (\bibinfo  {publisher} {Springer},\ \bibinfo {year} {2001})\ pp.\ \bibinfo {pages} {3--14}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Capp{\'e}}\ \emph {et~al.}(2007)\citenamefont {Capp{\'e}}, \citenamefont {Godsill},\ and\ \citenamefont {Moulines}}]{cappe2007overview}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {O.}~\bibnamefont {Capp{\'e}}}, \bibinfo {author} {\bibfnamefont {S.~J.}\ \bibnamefont {Godsill}},\ and\ \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {Moulines}},\ }\bibfield  {title} {\bibinfo {title} {An overview of existing methods and recent advances in sequential monte carlo},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Proceedings of the IEEE}\ }\textbf {\bibinfo {volume} {95}},\ \bibinfo {pages} {899} (\bibinfo {year} {2007})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Chopin}\ \emph {et~al.}(2020)\citenamefont {Chopin}, \citenamefont {Papaspiliopoulos} \emph {et~al.}}]{chopin2020introduction}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Chopin}}, \bibinfo {author} {\bibfnamefont {O.}~\bibnamefont {Papaspiliopoulos}}, \emph {et~al.},\ }\href@noop {} {\emph {\bibinfo {title} {An introduction to sequential Monte Carlo}}},\ Vol.~\bibinfo {volume} {4}\ (\bibinfo  {publisher} {Springer},\ \bibinfo {year} {2020})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Wills}\ and\ \citenamefont {Sch{\"o}n}(2023)}]{wills2023sequential}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~G.}\ \bibnamefont {Wills}}\ and\ \bibinfo {author} {\bibfnamefont {T.~B.}\ \bibnamefont {Sch{\"o}n}},\ }\bibfield  {title} {\bibinfo {title} {Sequential monte carlo: a unified review},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Annual Review of Control, Robotics, and Autonomous Systems}\ }\textbf {\bibinfo {volume} {6}},\ \bibinfo {pages} {159} (\bibinfo {year} {2023})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Dellago}\ \emph {et~al.}(2002)\citenamefont {Dellago}, \citenamefont {Bolhuis},\ and\ \citenamefont {Geissler}}]{dellago2002transition}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Dellago}}, \bibinfo {author} {\bibfnamefont {P.~G.}\ \bibnamefont {Bolhuis}},\ and\ \bibinfo {author} {\bibfnamefont {P.~L.}\ \bibnamefont {Geissler}},\ }\bibfield  {title} {\bibinfo {title} {Transition path sampling},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Advances in Chemical Physics}\ }\textbf {\bibinfo {volume} {123}},\ \bibinfo {pages} {1} (\bibinfo {year} {2002})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Laio}\ and\ \citenamefont {Parrinello}(2002)}]{laio2002escaping}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Laio}}\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Parrinello}},\ }\bibfield  {title} {\bibinfo {title} {Escaping free-energy minima},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Proceedings of the National Academy of Sciences}\ }\textbf {\bibinfo {volume} {99}},\ \bibinfo {pages} {12562} (\bibinfo {year} {2002})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Earl}\ and\ \citenamefont {Deem}(2005)}]{earl2005parallel}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.~J.}\ \bibnamefont {Earl}}\ and\ \bibinfo {author} {\bibfnamefont {M.~W.}\ \bibnamefont {Deem}},\ }\bibfield  {title} {\bibinfo {title} {Parallel tempering: Theory, applications, and new perspectives},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Physical Chemistry Chemical Physics}\ }\textbf {\bibinfo {volume} {7}},\ \bibinfo {pages} {3910} (\bibinfo {year} {2005})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Miasojedow}\ \emph {et~al.}(2013)\citenamefont {Miasojedow}, \citenamefont {Moulines},\ and\ \citenamefont {Vihola}}]{miasojedow2013adaptive}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Miasojedow}}, \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {Moulines}},\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Vihola}},\ }\bibfield  {title} {\bibinfo {title} {An adaptive parallel tempering algorithm},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Journal of Computational and Graphical Statistics}\ }\textbf {\bibinfo {volume} {22}},\ \bibinfo {pages} {649} (\bibinfo {year} {2013})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Syed}\ \emph {et~al.}(2022)\citenamefont {Syed}, \citenamefont {Bouchard-C{\^o}t{\'e}}, \citenamefont {Deligiannidis},\ and\ \citenamefont {Doucet}}]{syed2022non}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Syed}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Bouchard-C{\^o}t{\'e}}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Deligiannidis}},\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Doucet}},\ }\bibfield  {title} {\bibinfo {title} {Non-reversible parallel tempering: a scalable highly parallel mcmc scheme},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Journal of the Royal Statistical Society Series B: Statistical Methodology}\ }\textbf {\bibinfo {volume} {84}},\ \bibinfo {pages} {321} (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Deng}\ \emph {et~al.}(2023)\citenamefont {Deng}, \citenamefont {Zhang}, \citenamefont {Feng}, \citenamefont {Liang},\ and\ \citenamefont {Lin}}]{deng2023non}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.}~\bibnamefont {Deng}}, \bibinfo {author} {\bibfnamefont {Q.}~\bibnamefont {Zhang}}, \bibinfo {author} {\bibfnamefont {Q.}~\bibnamefont {Feng}}, \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Liang}},\ and\ \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Lin}},\ }\bibfield  {title} {\bibinfo {title} {Non-reversible parallel tempering for deep posterior approximation},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Proceedings of the AAAI Conference on Artificial Intelligence}}},\ Vol.~\bibinfo {volume} {37}\ (\bibinfo {year} {2023})\ pp.\ \bibinfo {pages} {7332--7339}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {No{\'e}}\ \emph {et~al.}(2019)\citenamefont {No{\'e}}, \citenamefont {Olsson}, \citenamefont {K{\"o}hler},\ and\ \citenamefont {Wu}}]{noe2019boltzmann}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {No{\'e}}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Olsson}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {K{\"o}hler}},\ and\ \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Wu}},\ }\bibfield  {title} {\bibinfo {title} {Boltzmann generators: Sampling equilibrium states of many-body systems with deep learning},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Science}\ }\textbf {\bibinfo {volume} {365}},\ \bibinfo {pages} {eaaw1147} (\bibinfo {year} {2019})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Dinh}\ \emph {et~al.}(2016)\citenamefont {Dinh}, \citenamefont {Sohl-Dickstein},\ and\ \citenamefont {Bengio}}]{dinh2016density}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Dinh}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Sohl-Dickstein}},\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Bengio}},\ }\bibfield  {title} {\bibinfo {title} {Density estimation using real nvp},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:1605.08803}\ } (\bibinfo {year} {2016})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Durkan}\ \emph {et~al.}(2019)\citenamefont {Durkan}, \citenamefont {Bekasov}, \citenamefont {Murray},\ and\ \citenamefont {Papamakarios}}]{durkan2019neural}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Durkan}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Bekasov}}, \bibinfo {author} {\bibfnamefont {I.}~\bibnamefont {Murray}},\ and\ \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Papamakarios}},\ }\bibfield  {title} {\bibinfo {title} {Neural spline flows},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Advances in neural information processing systems}\ }\textbf {\bibinfo {volume} {32}} (\bibinfo {year} {2019})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Wu}\ \emph {et~al.}(2020)\citenamefont {Wu}, \citenamefont {K{\"o}hler},\ and\ \citenamefont {No{\'e}}}]{wu2020stochastic}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Wu}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {K{\"o}hler}},\ and\ \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {No{\'e}}},\ }\bibfield  {title} {\bibinfo {title} {Stochastic normalizing flows},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Advances in neural information processing systems}\ }\textbf {\bibinfo {volume} {33}},\ \bibinfo {pages} {5933} (\bibinfo {year} {2020})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Wirnsberger}\ \emph {et~al.}(2020)\citenamefont {Wirnsberger}, \citenamefont {Ballard}, \citenamefont {Papamakarios}, \citenamefont {Abercrombie}, \citenamefont {Racani{\`e}re}, \citenamefont {Pritzel}, \citenamefont {Jimenez~Rezende},\ and\ \citenamefont {Blundell}}]{wirnsberger2020targeted}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Wirnsberger}}, \bibinfo {author} {\bibfnamefont {A.~J.}\ \bibnamefont {Ballard}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Papamakarios}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Abercrombie}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Racani{\`e}re}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Pritzel}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Jimenez~Rezende}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Blundell}},\ }\bibfield  {title} {\bibinfo {title} {Targeted free energy estimation via normalizing flows},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {The Journal of Chemical Physics}\ }\textbf {\bibinfo {volume} {153}},\ \bibinfo {pages} {144112} (\bibinfo {year} {2020})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Abbott}\ \emph {et~al.}(2023)\citenamefont {Abbott}, \citenamefont {Albergo}, \citenamefont {Botev}, \citenamefont {Boyda}, \citenamefont {Cranmer}, \citenamefont {Hackett}, \citenamefont {Kanwar}, \citenamefont {Matthews}, \citenamefont {Racani{\`e}re}, \citenamefont {Razavi} \emph {et~al.}}]{abbott2023normalizing}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Abbott}}, \bibinfo {author} {\bibfnamefont {M.~S.}\ \bibnamefont {Albergo}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Botev}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Boyda}}, \bibinfo {author} {\bibfnamefont {K.}~\bibnamefont {Cranmer}}, \bibinfo {author} {\bibfnamefont {D.~C.}\ \bibnamefont {Hackett}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Kanwar}}, \bibinfo {author} {\bibfnamefont {A.~G.}\ \bibnamefont {Matthews}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Racani{\`e}re}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Razavi}}, \emph {et~al.},\ }\bibfield  {title} {\bibinfo {title} {Normalizing flows for lattice gauge theory in arbitrary space-time dimension},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2305.02402}\ } (\bibinfo {year} {2023})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {K{\"o}hler}\ \emph {et~al.}(2024)\citenamefont {K{\"o}hler}, \citenamefont {Ingraham},\ and\ \citenamefont {No{\'e}}}]{kohler2024transferable}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {K{\"o}hler}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Ingraham}},\ and\ \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {No{\'e}}},\ }\bibfield  {title} {\bibinfo {title} {Transferable boltzmann generators},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Advances in Neural Information Processing Systems}}},\ Vol.~\bibinfo {volume} {37}\ (\bibinfo {year} {2024})\ pp.\ \bibinfo {pages} {31980--31993}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Coretti}\ \emph {et~al.}(2024)\citenamefont {Coretti}, \citenamefont {Falkner}, \citenamefont {Weinreich}, \citenamefont {Dellago},\ and\ \citenamefont {von Lilienfeld}}]{coretti2024boltzmann}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Coretti}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Falkner}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Weinreich}}, \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Dellago}},\ and\ \bibinfo {author} {\bibfnamefont {O.~A.}\ \bibnamefont {von Lilienfeld}},\ }\bibfield  {title} {\bibinfo {title} {Boltzmann generators and the new frontier of computational sampling in many-body systems},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2404.16566}\ } (\bibinfo {year} {2024})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Schebek}\ \emph {et~al.}(2025)\citenamefont {Schebek}, \citenamefont {No{\'e}},\ and\ \citenamefont {Rogal}}]{schebek2025scalable}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Schebek}}, \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {No{\'e}}},\ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Rogal}},\ }\bibfield  {title} {\bibinfo {title} {Scalable boltzmann generators for equilibrium sampling of large-scale materials},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2509.25486}\ } (\bibinfo {year} {2025})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Midgley}\ \emph {et~al.}(2022)\citenamefont {Midgley}, \citenamefont {Stimper}, \citenamefont {Simm}, \citenamefont {Sch{\"o}lkopf},\ and\ \citenamefont {Hern{\'a}ndez-Lobato}}]{midgley2022flow}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.~I.}\ \bibnamefont {Midgley}}, \bibinfo {author} {\bibfnamefont {V.}~\bibnamefont {Stimper}}, \bibinfo {author} {\bibfnamefont {G.~N.}\ \bibnamefont {Simm}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Sch{\"o}lkopf}},\ and\ \bibinfo {author} {\bibfnamefont {J.~M.}\ \bibnamefont {Hern{\'a}ndez-Lobato}},\ }\bibfield  {title} {\bibinfo {title} {Flow annealed importance sampling bootstrap},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2208.01893}\ } (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Midgley}\ \emph {et~al.}(2023)\citenamefont {Midgley}, \citenamefont {Stimper}, \citenamefont {Simm}, \citenamefont {Sch{\"o}lkopf},\ and\ \citenamefont {Hern{\'a}ndez-Lobato}}]{midgley2023learning}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.~I.}\ \bibnamefont {Midgley}}, \bibinfo {author} {\bibfnamefont {V.}~\bibnamefont {Stimper}}, \bibinfo {author} {\bibfnamefont {G.~N.}\ \bibnamefont {Simm}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Sch{\"o}lkopf}},\ and\ \bibinfo {author} {\bibfnamefont {J.~M.}\ \bibnamefont {Hern{\'a}ndez-Lobato}},\ }\bibfield  {title} {\bibinfo {title} {Learning to sample with flow annealed importance sampling bootstrap},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {The Eleventh International Conference on Learning Representations}\ } (\bibinfo {year} {2023})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Deng}\ \emph {et~al.}(2020)\citenamefont {Deng}, \citenamefont {Feng}, \citenamefont {Karagiannis}, \citenamefont {Lin},\ and\ \citenamefont {Liang}}]{deng2020accelerating}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {W.}~\bibnamefont {Deng}}, \bibinfo {author} {\bibfnamefont {Q.}~\bibnamefont {Feng}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Karagiannis}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Lin}},\ and\ \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {Liang}},\ }\bibfield  {title} {\bibinfo {title} {Accelerating convergence of replica exchange stochastic gradient {MCMC} via variance reduction},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2010.01084}\ } (\bibinfo {year} {2020})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Li}\ \emph {et~al.}(2023)\citenamefont {Li}, \citenamefont {Lin}, \citenamefont {Zhang},\ and\ \citenamefont {Zhou}}]{li2023fast}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Li}}, \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Lin}}, \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Zhang}},\ and\ \bibinfo {author} {\bibfnamefont {Q.}~\bibnamefont {Zhou}},\ }\bibfield  {title} {\bibinfo {title} {Fast replica exchange stochastic gradient langevin dynamics},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2301.01898}\ } (\bibinfo {year} {2023})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Lin}\ \emph {et~al.}(2023)\citenamefont {Lin}, \citenamefont {Moya},\ and\ \citenamefont {Zhang}}]{lin2023b}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Lin}}, \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Moya}},\ and\ \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Zhang}},\ }\bibfield  {title} {\bibinfo {title} {{B-DeepONet}: An enhanced {Bayesian} {DeepONet} for solving noisy parametric pdes using accelerated replica exchange {SGLD}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Journal of Computational Physics}\ }\textbf {\bibinfo {volume} {473}},\ \bibinfo {pages} {111713} (\bibinfo {year} {2023})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Herman}\ \emph {et~al.}(1982)\citenamefont {Herman}, \citenamefont {Bruskin},\ and\ \citenamefont {Berne}}]{herman1982path}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.~F.}\ \bibnamefont {Herman}}, \bibinfo {author} {\bibfnamefont {E.~J.}\ \bibnamefont {Bruskin}},\ and\ \bibinfo {author} {\bibfnamefont {B.~J.}\ \bibnamefont {Berne}},\ }\bibfield  {title} {\bibinfo {title} {On path integral {Monte Carlo} simulations},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {The Journal of Chemical Physics}\ }\textbf {\bibinfo {volume} {76}},\ \bibinfo {pages} {5150} (\bibinfo {year} {1982})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Marx}\ and\ \citenamefont {Parrinello}(1996)}]{marx1996ab}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Marx}}\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Parrinello}},\ }\bibfield  {title} {\bibinfo {title} {Ab initio path integral molecular dynamics: Basic ideas},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {The Journal of Chemical Physics}\ }\textbf {\bibinfo {volume} {104}},\ \bibinfo {pages} {4077} (\bibinfo {year} {1996})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Ceriotti}\ \emph {et~al.}(2010)\citenamefont {Ceriotti}, \citenamefont {Parrinello}, \citenamefont {Markland},\ and\ \citenamefont {Manolopoulos}}]{ceriotti2010efficient}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Ceriotti}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Parrinello}}, \bibinfo {author} {\bibfnamefont {T.~E.}\ \bibnamefont {Markland}},\ and\ \bibinfo {author} {\bibfnamefont {D.~E.}\ \bibnamefont {Manolopoulos}},\ }\bibfield  {title} {\bibinfo {title} {Efficient stochastic thermostatting of path integral molecular dynamics},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {The Journal of Chemical Physics}\ }\textbf {\bibinfo {volume} {133}} (\bibinfo {year} {2010})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Schoof}\ \emph {et~al.}(2011)\citenamefont {Schoof}, \citenamefont {Bonitz}, \citenamefont {Filinov}, \citenamefont {Hochstuhl},\ and\ \citenamefont {Dufty}}]{schoof2011configuration}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Schoof}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Bonitz}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Filinov}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Hochstuhl}},\ and\ \bibinfo {author} {\bibfnamefont {J.~W.}\ \bibnamefont {Dufty}},\ }\bibfield  {title} {\bibinfo {title} {Configuration path integral {Monte Carlo}},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Contributions to Plasma Physics}\ }\textbf {\bibinfo {volume} {51}},\ \bibinfo {pages} {687} (\bibinfo {year} {2011})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Falkner}\ \emph {et~al.}(2023)\citenamefont {Falkner}, \citenamefont {Coretti}, \citenamefont {Romano}, \citenamefont {Geissler},\ and\ \citenamefont {Dellago}}]{falkner2023conditioning}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Falkner}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Coretti}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Romano}}, \bibinfo {author} {\bibfnamefont {P.~L.}\ \bibnamefont {Geissler}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Dellago}},\ }\bibfield  {title} {\bibinfo {title} {Conditioning boltzmann generators for rare event sampling},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Machine Learning: Science and Technology}\ }\textbf {\bibinfo {volume} {4}},\ \bibinfo {pages} {035050} (\bibinfo {year} {2023})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Dibak}\ \emph {et~al.}(2022)\citenamefont {Dibak}, \citenamefont {Klein}, \citenamefont {Kr{\"a}mer},\ and\ \citenamefont {No{\'e}}}]{dibak2022temperature}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Dibak}}, \bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Klein}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Kr{\"a}mer}},\ and\ \bibinfo {author} {\bibfnamefont {F.}~\bibnamefont {No{\'e}}},\ }\bibfield  {title} {\bibinfo {title} {Temperature steerable flows and boltzmann generators},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Physical Review Research}\ }\textbf {\bibinfo {volume} {4}},\ \bibinfo {pages} {L042005} (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Wang}\ \emph {et~al.}(2025)\citenamefont {Wang}, \citenamefont {Chi},\ and\ \citenamefont {Dinner}}]{wang2025mitigating}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Wang}}, \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Chi}},\ and\ \bibinfo {author} {\bibfnamefont {A.~R.}\ \bibnamefont {Dinner}},\ }\bibfield  {title} {\bibinfo {title} {Mitigating mode collapse in normalizing flows by annealing with an adaptive schedule: Application to parameter estimation},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2505.03652}\ } (\bibinfo {year} {2025})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Matthews}\ \emph {et~al.}(2022)\citenamefont {Matthews}, \citenamefont {Arbel}, \citenamefont {Rezende},\ and\ \citenamefont {Doucet}}]{matthews2022continual}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~G.}\ \bibnamefont {Matthews}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Arbel}}, \bibinfo {author} {\bibfnamefont {D.~J.}\ \bibnamefont {Rezende}},\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Doucet}},\ }\bibfield  {title} {\bibinfo {title} {Continual repeated annealed flow transport monte carlo},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2201.13117}\ } (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Qiu}\ and\ \citenamefont {Wang}(2024)}]{qiu2024efficient}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Qiu}}\ and\ \bibinfo {author} {\bibfnamefont {X.}~\bibnamefont {Wang}},\ }\bibfield  {title} {\bibinfo {title} {Efficient multimodal sampling via tempered distribution flow},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Journal of the American Statistical Association}\ }\textbf {\bibinfo {volume} {119}},\ \bibinfo {pages} {1446} (\bibinfo {year} {2024})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Gabri{\'e}}\ \emph {et~al.}(2022)\citenamefont {Gabri{\'e}}, \citenamefont {Rotskoff},\ and\ \citenamefont {Vanden-Eijnden}}]{gabrie2022adaptive}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Gabri{\'e}}}, \bibinfo {author} {\bibfnamefont {G.~M.}\ \bibnamefont {Rotskoff}},\ and\ \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {Vanden-Eijnden}},\ }\bibfield  {title} {\bibinfo {title} {Adaptive monte carlo augmented with normalizing flows},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Proceedings of the National Academy of Sciences}\ }\textbf {\bibinfo {volume} {119}},\ \bibinfo {pages} {e2109420119} (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Abernethy}\ \emph {et~al.}(2024)\citenamefont {Abernethy} \emph {et~al.}}]{abernethy2024flow}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Abernethy}} \emph {et~al.},\ }\bibfield  {title} {\bibinfo {title} {Flow to rare events: An application of normalizing flow in temporal importance sampling for automated vehicle validation},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint}\ } (\bibinfo {year} {2024})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Luhman}\ and\ \citenamefont {Luhman}(2021)}]{luhman2021knowledge}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {Luhman}}\ and\ \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Luhman}},\ }\bibfield  {title} {\bibinfo {title} {Knowledge distillation in iterative generative models for improved sampling speed},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2101.02388}\ } (\bibinfo {year} {2021})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Zhou}\ \emph {et~al.}(2024)\citenamefont {Zhou}, \citenamefont {Chen}, \citenamefont {Wang}, \citenamefont {Chen},\ and\ \citenamefont {Lyu}}]{zhou2024simple}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Zhou}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Chen}}, \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Wang}}, \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Chen}},\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Lyu}},\ }\bibfield  {title} {\bibinfo {title} {Simple and fast distillation of diffusion models},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Advances in Neural Information Processing Systems}\ }\textbf {\bibinfo {volume} {37}},\ \bibinfo {pages} {40831} (\bibinfo {year} {2024})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Xie}\ \emph {et~al.}(2024)\citenamefont {Xie}, \citenamefont {Xiao}, \citenamefont {Kingma}, \citenamefont {Hou}, \citenamefont {Wu}, \citenamefont {Murphy}, \citenamefont {Salimans}, \citenamefont {Poole},\ and\ \citenamefont {Gao}}]{xie2024distillation}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Xie}}, \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Xiao}}, \bibinfo {author} {\bibfnamefont {D.}~\bibnamefont {Kingma}}, \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Hou}}, \bibinfo {author} {\bibfnamefont {Y.~N.}\ \bibnamefont {Wu}}, \bibinfo {author} {\bibfnamefont {K.~P.}\ \bibnamefont {Murphy}}, \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Salimans}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Poole}},\ and\ \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Gao}},\ }\bibfield  {title} {\bibinfo {title} {Em distillation for one-step diffusion models},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Advances in Neural Information Processing Systems}\ }\textbf {\bibinfo {volume} {37}},\ \bibinfo {pages} {45073} (\bibinfo {year} {2024})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Fu}\ \emph {et~al.}(2025)\citenamefont {Fu}, \citenamefont {Yan}, \citenamefont {Wang}, \citenamefont {Li},\ and\ \citenamefont {Liao}}]{fu2025moflow}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Fu}}, \bibinfo {author} {\bibfnamefont {Q.}~\bibnamefont {Yan}}, \bibinfo {author} {\bibfnamefont {L.}~\bibnamefont {Wang}}, \bibinfo {author} {\bibfnamefont {K.}~\bibnamefont {Li}},\ and\ \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Liao}},\ }\bibfield  {title} {\bibinfo {title} {Moflow: One-step flow matching for human trajectory forecasting via implicit maximum likelihood estimation based distillation},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Proceedings of the Computer Vision and Pattern Recognition Conference}}}\ (\bibinfo {year} {2025})\ pp.\ \bibinfo {pages} {17282--17293}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Song}\ \emph {et~al.}(2021)\citenamefont {Song}, \citenamefont {Durkan}, \citenamefont {Murray},\ and\ \citenamefont {Ermon}}]{song2021maximum}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Song}}, \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Durkan}}, \bibinfo {author} {\bibfnamefont {I.}~\bibnamefont {Murray}},\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Ermon}},\ }\bibfield  {title} {\bibinfo {title} {Maximum likelihood training of score-based diffusion models},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Advances in neural information processing systems}\ }\textbf {\bibinfo {volume} {34}},\ \bibinfo {pages} {1415} (\bibinfo {year} {2021})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Batzolis}\ \emph {et~al.}(2021)\citenamefont {Batzolis}, \citenamefont {Stanczuk}, \citenamefont {Sch{\"o}nlieb},\ and\ \citenamefont {Etmann}}]{batzolis2021conditional}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Batzolis}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Stanczuk}}, \bibinfo {author} {\bibfnamefont {C.-B.}\ \bibnamefont {Sch{\"o}nlieb}},\ and\ \bibinfo {author} {\bibfnamefont {C.}~\bibnamefont {Etmann}},\ }\bibfield  {title} {\bibinfo {title} {Conditional image generation with score-based diffusion models},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2111.13606}\ } (\bibinfo {year} {2021})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Lipman}\ \emph {et~al.}(2022)\citenamefont {Lipman}, \citenamefont {Chen}, \citenamefont {Ben-Hamu}, \citenamefont {Nickel},\ and\ \citenamefont {Le}}]{lipman2022flow}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Lipman}}, \bibinfo {author} {\bibfnamefont {R.~T.}\ \bibnamefont {Chen}}, \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Ben-Hamu}}, \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Nickel}},\ and\ \bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Le}},\ }\bibfield  {title} {\bibinfo {title} {Flow matching for generative modeling},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2210.02747}\ } (\bibinfo {year} {2022})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Chen}\ and\ \citenamefont {Lipman}(2023)}]{chen2023flow}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.~T.}\ \bibnamefont {Chen}}\ and\ \bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Lipman}},\ }\bibfield  {title} {\bibinfo {title} {Flow matching on general geometries},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv preprint arXiv:2302.03660}\ } (\bibinfo {year} {2023})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Moreno}\ \emph {et~al.}(2003)\citenamefont {Moreno}, \citenamefont {Ho},\ and\ \citenamefont {Vasconcelos}}]{moreno2003kullback}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Moreno}}, \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Ho}},\ and\ \bibinfo {author} {\bibfnamefont {N.}~\bibnamefont {Vasconcelos}},\ }\bibfield  {title} {\bibinfo {title} {A kullback-leibler divergence based kernel for svm classification in multimedia applications},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Advances in Neural Information Processing Systems}}},\ Vol.~\bibinfo {volume} {16}\ (\bibinfo {year} {2003})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Bayarri}\ and\ \citenamefont {Garc{\'\i}a-Donato}(2008)}]{bayarri2008generalization}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Bayarri}}\ and\ \bibinfo {author} {\bibfnamefont {G.}~\bibnamefont {Garc{\'\i}a-Donato}},\ }\bibfield  {title} {\bibinfo {title} {Generalization of jeffreys divergence-based priors for bayesian hypothesis testing},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Journal of the Royal Statistical Society Series B: Statistical Methodology}\ }\textbf {\bibinfo {volume} {70}},\ \bibinfo {pages} {981} (\bibinfo {year} {2008})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Yao}\ \emph {et~al.}(2011)\citenamefont {Yao}, \citenamefont {Lai},\ and\ \citenamefont {Liu}}]{yao2011symmetric}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Yao}}, \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Lai}},\ and\ \bibinfo {author} {\bibfnamefont {W.}~\bibnamefont {Liu}},\ }\bibfield  {title} {\bibinfo {title} {A symmetric kl divergence based spatiogram similarity measure},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {2011 18th IEEE International Conference on Image Processing}}}\ (\bibinfo {organization} {IEEE},\ \bibinfo {year} {2011})\ pp.\ \bibinfo {pages} {193--196}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Sharma}\ \emph {et~al.}(2021)\citenamefont {Sharma}, \citenamefont {Seal}, \citenamefont {Yazidi}, \citenamefont {Selamat},\ and\ \citenamefont {Krejcar}}]{sharma2021clustering}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {K.~K.}\ \bibnamefont {Sharma}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Seal}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Yazidi}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Selamat}},\ and\ \bibinfo {author} {\bibfnamefont {O.}~\bibnamefont {Krejcar}},\ }\bibfield  {title} {\bibinfo {title} {Clustering uncertain data objects using jeffreys-divergence and maximum bipartite matching based similarity measure},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {IEEE Access}\ }\textbf {\bibinfo {volume} {9}},\ \bibinfo {pages} {79505} (\bibinfo {year} {2021})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Nishii}\ and\ \citenamefont {Eguchi}(2006)}]{nishii2006image}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Nishii}}\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Eguchi}},\ }\bibfield  {title} {\bibinfo {title} {Image classification based on markov random field models with jeffreys divergence},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Journal of Multivariate Analysis}\ }\textbf {\bibinfo {volume} {97}},\ \bibinfo {pages} {1997} (\bibinfo {year} {2006})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Han}\ and\ \citenamefont {Wu}(2020)}]{han2020active}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Han}}\ and\ \bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Wu}},\ }\bibfield  {title} {\bibinfo {title} {Active contour model for inhomogenous image segmentation based on jeffreys divergence},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Pattern Recognition}\ }\textbf {\bibinfo {volume} {107}},\ \bibinfo {pages} {107520} (\bibinfo {year} {2020})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Sugiyama}\ \emph {et~al.}(2012)\citenamefont {Sugiyama}, \citenamefont {Suzuki},\ and\ \citenamefont {Kanamori}}]{sugiyama2012density}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Sugiyama}}, \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Suzuki}},\ and\ \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Kanamori}},\ }\href@noop {} {\emph {\bibinfo {title} {Density ratio estimation in machine learning}}}\ (\bibinfo  {publisher} {Cambridge University Press},\ \bibinfo {year} {2012})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Tsybakov}(2008)}]{tsybakov2008nonparametric}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~B.}\ \bibnamefont {Tsybakov}},\ }\bibfield  {title} {\bibinfo {title} {Nonparametric estimators},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {Introduction to Nonparametric Estimation}}}\ (\bibinfo  {publisher} {Springer},\ \bibinfo {year} {2008})\ pp.\ \bibinfo {pages} {1--76}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Johnson}\ and\ \citenamefont {Zhang}(2013)}]{johnson2013accelerating}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Johnson}}\ and\ \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {Zhang}},\ }\bibfield  {title} {\bibinfo {title} {Accelerating stochastic gradient descent using predictive variance reduction},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {Advances in neural information processing systems}\ }\textbf {\bibinfo {volume} {26}} (\bibinfo {year} {2013})}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Reddi}\ \emph {et~al.}(2016)\citenamefont {Reddi}, \citenamefont {Hefny}, \citenamefont {Sra}, \citenamefont {Poczos},\ and\ \citenamefont {Smola}}]{reddi2016stochastic}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.~J.}\ \bibnamefont {Reddi}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Hefny}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Sra}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Poczos}},\ and\ \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Smola}},\ }\bibfield  {title} {\bibinfo {title} {Stochastic variance reduction for nonconvex optimization},\ }in\ \href@noop {} {\emph {\bibinfo {booktitle} {International conference on machine learning}}}\ (\bibinfo {organization} {PMLR},\ \bibinfo {year} {2016})\ pp.\ \bibinfo {pages} {314--323}\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Reed}\ \emph {et~al.}(1972)\citenamefont {Reed}, \citenamefont {Simon}, \citenamefont {Simon},\ and\ \citenamefont {Simon}}]{reed1972methods}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {M.}~\bibnamefont {Reed}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Simon}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Simon}},\ and\ \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Simon}},\ }\href@noop {} {\emph {\bibinfo {title} {Methods of modern mathematical physics}}},\ Vol.~\bibinfo {volume} {1}\ (\bibinfo  {publisher} {Elsevier},\ \bibinfo {year} {1972})\BibitemShut {NoStop}%
+\bibitem [{\citenamefont {Ye}\ and\ \citenamefont {Zhou}(2023)}]{ye2023optimal}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {X.}~\bibnamefont {Ye}}\ and\ \bibinfo {author} {\bibfnamefont {Z.}~\bibnamefont {Zhou}},\ }\bibfield  {title} {\bibinfo {title} {Optimal convergence rate of lie-trotter approximation for quantum thermal averages},\ }\href@noop {} {\bibfield  {journal} {\bibinfo  {journal} {arXiv e-prints}\ ,\ \bibinfo {pages} {arXiv}} (\bibinfo {year} {2023})}\BibitemShut {NoStop}%
+\end{thebibliography}%
